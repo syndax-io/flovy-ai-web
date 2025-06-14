@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Brain circuit pattern representing AI -->
+    <path d="M40 100 C40 60, 160 60, 160 100 C160 140, 40 140, 40 100" stroke="#4F46E5" stroke-width="4" fill="none" />
+    <path d="M60 80 C60 60, 140 60, 140 80" stroke="#4F46E5" stroke-width="3" fill="none" />
+    <path d="M60 120 C60 140, 140 140, 140 120" stroke="#4F46E5" stroke-width="3" fill="none" />
+
+    <!-- Connection nodes -->
+    <circle cx="60" cy="80" r="4" fill="#4F46E5" />
+    <circle cx="140" cy="80" r="4" fill="#4F46E5" />
+    <circle cx="60" cy="120" r="4" fill="#4F46E5" />
+    <circle cx="140" cy="120" r="4" fill="#4F46E5" />
+
+    <!-- Heart shape representing personal understanding -->
+    <path
+        d="M100 130 C100 130, 85 115, 85 100 C85 85, 100 85, 100 100 C100 85, 115 85, 115 100 C115 115, 100 130, 100 130"
+        fill="#4F46E5" fill-opacity="0.8" />
+
+    <!-- Abstract person silhouette -->
+    <path d="M100 60 C100 60, 90 70, 90 80 C90 90, 110 90, 110 80 C110 70, 100 60, 100 60" fill="#4F46E5"
+        fill-opacity="0.6" />
+</svg>

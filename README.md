@@ -1,36 +1,59 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# flovy.ai
+
+An AI-powered productivity assistant that helps you plan your day and understands you.
+
+## Overview
+
+flovy.ai is a next-generation productivity assistant that goes beyond traditional task management. It's designed to understand your work patterns, goals, and preferences to provide personalized productivity recommendations.
+
+### Key Features
+
+- **Personalized Focus**: Connects to your calendar, goals, and past activities to give daily suggestions on what to focus on.
+- **Holistic Tracking**: Keeps track of your habits, energy levels, and tasks you've been avoiding helping you stay aligned with your long-term goals.
+- **Evolving Intelligence**: The more you use it, the smarter it gets. flovy.ai learns from your behavior, refines its recommendations, and adapts to your working style and ambitions.
+- **Beyond Task Management**: Not just a task manager. It's a thought partner, motivation coach, and daily strategist built with AI.
+
+## Tech Stack
+
+- **Framework**: Next.js 14
+- **Styling**: Tailwind CSS
+- **Fonts**: Geist (Sans & Mono)
+- **Deployment**: Vercel
 
 ## Getting Started
 
-First, run the development server:
-
+1. Clone the repository:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/yourusername/flovy-ai-web.git
+cd flovy-ai-web
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Run the development server:
+```bash
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Learn More
+## Development
 
-To learn more about Next.js, take a look at the following resources:
+- The main page is located in `src/app/page.tsx`
+- Global styles are in `src/app/globals.css`
+- The layout configuration is in `src/app/layout.tsx`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Contributing
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+We welcome contributions! Please feel free to submit a Pull Request.
 
-## Deploy on Vercel
+## Contact
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+For early access or inquiries, please email us at [hello@flovy.ai](mailto:hello@flovy.ai)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## License
+
+© 2024 flovy.ai. All rights reserved.

@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Logo from "../components/web/Logo";
 
 export default function Home() {
   return (
@@ -7,14 +7,7 @@ export default function Home() {
       <header className="flex flex-col items-center justify-center flex-1 px-4 py-24 text-center">
         {/* Logo Placeholder */}
         <div className="mb-6">
-          <Image
-            src="/flovy-logo.svg"
-            alt="flovy.ai Logo"
-            width={120}
-            height={120}
-            className="mx-auto"
-            priority
-          />
+          <Logo className="mx-auto" width={100} height={100} />
         </div>
         <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white mb-4">
           flovy.ai

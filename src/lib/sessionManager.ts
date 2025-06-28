@@ -8,6 +8,7 @@ interface SessionConfig {
   timeoutMinutes: number; // Session timeout in minutes
   checkIntervalSeconds: number; // How often to check for activity
   resetOnActivity: boolean; // Whether to reset timer on user activity
+  warningThresholdMinutes: number; // Warning threshold in minutes
 }
 
 class SessionManager {

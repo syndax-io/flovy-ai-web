@@ -1,6 +1,32 @@
+"use client";
+
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 import Logo from "../components/web/Logo";
+import LoginButton from "../components/web/LoginButton";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function Home() {
+  const { user, loading } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!loading && user) {
+      router.push("/dashboard");
+    }
+  }, [user, loading, router]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-white to-blue-50 dark:from-gray-900 dark:to-gray-800">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+          <p className="mt-4 text-gray-600 dark:text-gray-400">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-white to-blue-50 dark:from-gray-900 dark:to-gray-800 flex flex-col">
       {/* Hero Section */}
@@ -16,12 +42,7 @@ export default function Home() {
           An AI-powered productivity assistant that helps you plan your day and
           understands you.
         </p>
-        <a
-          href="#early-access"
-          className="inline-block px-8 py-3 bg-blue-600 text-white font-semibold rounded-full shadow-lg hover:bg-blue-700 transition"
-        >
-          Get Early Access
-        </a>
+        <LoginButton className="mb-4">Get Started with Google</LoginButton>
       </header>
 
       {/* Product Description Section */}
@@ -67,13 +88,7 @@ export default function Home() {
         <p className="text-gray-600 dark:text-gray-400 mb-4">
           Ready to work smarter, not harder?
         </p>
-        <a
-          id="early-access"
-          href="mailto:hello@flovy.ai?subject=Early%20Access%20Request"
-          className="inline-block px-6 py-2 bg-blue-600 text-white font-semibold rounded-full shadow hover:bg-blue-700 transition"
-        >
-          Request Early Access
-        </a>
+        <LoginButton>Sign in to Get Started</LoginButton>
         <p className="mt-6 text-xs text-gray-400">
           &copy; {new Date().getFullYear()} flovy.ai. All rights reserved.
         </p>

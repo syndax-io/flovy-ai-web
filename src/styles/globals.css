@@ -31,6 +31,7 @@ body {
     opacity: 0;
     transform: scale(0.8) translateY(10px);
   }
+
   100% {
     opacity: 1;
     transform: scale(1) translateY(0);
@@ -40,4 +41,35 @@ body {
 .animate-fade-in-scale {
   animation: fade-in-scale 0.8s ease-out forwards !important;
   animation-delay: 0.1s;
-} 
+}
+
+/* Cursor pointer for all clickable elements */
+button,
+[role="button"],
+a,
+input[type="submit"],
+input[type="button"],
+input[type="reset"],
+select,
+summary,
+[tabindex]:not([tabindex="-1"]) {
+  cursor: pointer;
+}
+
+/* Ensure links and buttons show pointer on hover */
+a:hover,
+button:hover,
+[role="button"]:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover,
+input[type="reset"]:hover {
+  cursor: pointer;
+}
+
+/* Disable pointer for disabled elements */
+button:disabled,
+input:disabled,
+select:disabled,
+[aria-disabled="true"] {
+  cursor: not-allowed !important;
+}

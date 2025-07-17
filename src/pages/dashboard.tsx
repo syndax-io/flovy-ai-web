@@ -5,6 +5,7 @@ import ProtectedRoute from "../components/app/ProtectedRoute";
 import Navbar from "../components/app/Navbar";
 import Card from "../components/app/Card";
 import Modal from "../components/app/Modal";
+import GoogleCalendarIntegration from "../components/app/GoogleCalendarIntegration";
 
 interface CardData {
   id: string;
@@ -273,6 +274,11 @@ export default function Dashboard() {
                   Tasks Completed
                 </div>
               </div>
+            </div>
+
+            {/* Google Calendar Integration */}
+            <div className="mb-8">
+              <GoogleCalendarIntegration />
             </div>
 
             {/* Cards Grid */}

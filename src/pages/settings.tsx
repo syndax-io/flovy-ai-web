@@ -19,7 +19,7 @@ export default function Settings() {
 
     // Find which preset matches the current config
     const matchingPreset = Object.entries(PRESET_CONFIGS).find(
-      ([_, preset]) =>
+      ([, preset]) =>
         preset.timeoutMinutes === config.timeoutMinutes &&
         preset.resetOnActivity === config.resetOnActivity &&
         preset.warningThresholdMinutes === config.warningThresholdMinutes

@@ -35,7 +35,7 @@ const GoogleCalendarIntegration: React.FC = () => {
   };
 
   const handleFetchData = async () => {
-    await fetchCalendarData(365); // Fetch last year's data
+    await fetchCalendarData(60); // Fetch last 60 days' data
   };
 
   const handleCalendarToggle = (calendarId: string) => {

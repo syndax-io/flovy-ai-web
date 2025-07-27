@@ -56,4 +56,4 @@ For early access or inquiries, please email us at [hello@flovy.ai](mailto:hello@
 
 ## License
 
-© 2024 flovy.ai. All rights reserved.
+© 2025 flovy.ai. All rights reserved.

@@ -6,6 +6,8 @@ import Navbar from "../components/app/Navbar";
 import Card from "../components/app/Card";
 import Modal from "../components/app/Modal";
 import GoogleCalendarIntegration from "../components/app/GoogleCalendarIntegration";
+import AISuggestions from "../components/app/AISuggestions";
+import { useAuth } from "../contexts/AuthContext";
 
 interface CardData {
   id: string;
@@ -199,6 +201,7 @@ const cardData: CardData[] = [
 ];
 
 export default function Dashboard() {
+  const { user } = useAuth();
   const [selectedCard, setSelectedCard] = useState<CardData | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -275,6 +278,12 @@ export default function Dashboard() {
                 </div>
               </div>
             </div>
+
+            {/* AI Suggestions */}
+            <AISuggestions
+              cardData={cardData}
+              userName={user?.displayName || "User"}
+            />
 
             {/* Google Calendar Integration */}
             <div className="mb-8">

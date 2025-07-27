@@ -1,5 +1,5 @@
-import { generateProductivitySuggestion, UserProfile } from '@/lib/openai';
 import { NextRequest, NextResponse } from 'next/server';
+import { AIModel, generateProductivitySuggestion, UserProfile } from '@/lib/aiModels';
 
 export async function POST(req: NextRequest) {
   try {
@@ -8,7 +8,7 @@ export async function POST(req: NextRequest) {
     if (!userProfile) {
       return NextResponse.json({ error: 'Missing userProfile in request body' }, { status: 400 });
     }
-    const suggestion = await generateProductivitySuggestion(userProfile);
+    const suggestion = await generateProductivitySuggestion(userProfile,AIModel.GEMINI);
     return NextResponse.json(suggestion);
   } catch (error: unknown) {
     console.error('Error in /api/suggestions:', error);

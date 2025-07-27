@@ -116,6 +116,8 @@ export const useGoogleCalendar = () => {
     }
   }, []);
 
+
+
   const authenticate = useCallback(async () => {
     setIsLoading(true);
     setError(null);
@@ -198,6 +200,7 @@ export const useGoogleCalendar = () => {
       }
 
       const data = await response.json();
+      console.log('Calendar data received:', data);
       setCalendarData(data);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to fetch calendar data');
@@ -205,6 +208,15 @@ export const useGoogleCalendar = () => {
       setIsLoading(false);
     }
   }, [tokens, selectedCalendars]);
+
+  // Automatically fetch calendar data when tokens are available
+  useEffect(() => {
+    if (tokens && isAuthenticated && !calendarData) {
+      setTimeout(() => {
+        fetchCalendarData(365);
+      }, 1000);
+    }
+  }, [tokens, isAuthenticated, calendarData, fetchCalendarData]);
 
   const updateSelectedCalendars = useCallback((calendarIds: string[]) => {
     setSelectedCalendars(calendarIds);

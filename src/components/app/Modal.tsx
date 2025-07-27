@@ -80,7 +80,7 @@ const Modal: React.FC<ModalProps> = ({
   const styles = getVariantStyles();
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Backdrop */}
       <div
         className="absolute inset-0 bg-black bg-opacity-50 dark:bg-opacity-70"
@@ -89,10 +89,10 @@ const Modal: React.FC<ModalProps> = ({
 
       {/* Modal */}
       <div
-        className={`relative w-full max-w-2xl mx-4 ${styles.bg} rounded-lg shadow-xl border ${styles.border}`}
+        className={`relative w-full max-w-2xl max-h-[90vh] ${styles.bg} rounded-lg shadow-xl border ${styles.border} flex flex-col`}
       >
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
+        <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700 flex-shrink-0">
           <h2 className={`text-xl font-semibold ${styles.title}`}>{title}</h2>
           <button
             onClick={onClose}
@@ -116,7 +116,7 @@ const Modal: React.FC<ModalProps> = ({
         </div>
 
         {/* Content */}
-        <div className="p-6">{children}</div>
+        <div className="p-6 overflow-y-auto flex-1">{children}</div>
       </div>
     </div>
   );

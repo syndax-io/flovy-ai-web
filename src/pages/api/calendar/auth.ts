@@ -1,5 +1,5 @@
-import { NextApiRequest, NextApiResponse } from 'next';
 import { OAuth2Client } from 'google-auth-library';
+import { NextApiRequest, NextApiResponse } from 'next';
 
 const oauth2Client = new OAuth2Client(
   process.env.GOOGLE_CLIENT_ID,

@@ -73,3 +73,31 @@ select:disabled,
 [aria-disabled="true"] {
   cursor: not-allowed !important;
 }
+
+/* Emoji-friendly font families */
+.font-emoji {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;
+}
+
+.prose-emoji {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;
+}
+
+/* Ensure emojis are properly sized and aligned */
+.prose-emoji p,
+.prose-emoji li,
+.prose-emoji h1,
+.prose-emoji h2,
+.prose-emoji h3,
+.prose-emoji h4,
+.prose-emoji h5,
+.prose-emoji h6,
+.font-emoji {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;
+}
+
+/* Emoji-specific styling for better rendering */
+.prose-emoji em,
+.font-emoji em {
+  font-style: normal; /* Prevents emojis from being italicized */
+}

@@ -1,10 +1,22 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { OAuth2Client } from 'google-auth-library';
 
+// Get the redirect URI from environment variable or use localhost for development
+const getRedirectUri = () => {
+  if (process.env.GOOGLE_REDIRECT_URI) {
+    return process.env.GOOGLE_REDIRECT_URI;
+  }
+  
+  // Default for development
+  return process.env.NODE_ENV === 'production' 
+    ? 'https://your-domain.com/api/calendar/callback'
+    : 'http://localhost:3000/api/calendar/callback';
+};
+
 const oauth2Client = new OAuth2Client(
   process.env.GOOGLE_CLIENT_ID,
   process.env.GOOGLE_CLIENT_SECRET,
-  'http://localhost:3000/api/calendar/callback'
+  getRedirectUri()
 );
 
 export default async function handler(

@@ -1,14 +1,24 @@
 # Google Calendar API Setup Guide
 
-This guide will help you set up Google Calendar API integration for your Flovy AI Web application.
+This guide will help you set up Google Calendar API integration for your Flovy AI Web application using your business account (faiz@flovy.ai).
+
+## ✨ Business Account Setup
+
+**Benefits of using business account:**
+- Better security and organization management
+- Professional appearance in OAuth consent screens
+- Easier team collaboration and access control
+- Better audit trails and compliance
 
 ## 🚀 Quick Setup
 
 ### 1. Create Google Cloud Project
 
 1. Go to [Google Cloud Console](https://console.cloud.google.com/)
-2. Create a new project or select an existing one
-3. Enable billing (required for API usage)
+2. Make sure you're signed in with your business account (faiz@flovy.ai)
+3. Create a new project or select an existing one
+4. Enable billing (required for API usage)
+5. **Important**: Use your business account for better security and organization management
 
 ### 2. Enable Google Calendar API
 
@@ -20,31 +30,40 @@ This guide will help you set up Google Calendar API integration for your Flovy A
 
 1. Go to **APIs & Services** → **Credentials**
 2. Click **Create Credentials** → **OAuth client ID**
-3. If prompted, configure the OAuth consent screen:
-   - User Type: External
+3. If prompted, configure the OAuth consent screen first:
+   - User Type: External (choose Internal if you have Google Workspace)
    - App name: Flovy AI
-   - User support email: your email
-   - Developer contact information: your email
+   - User support email: faiz@flovy.ai
+   - Developer contact information: faiz@flovy.ai
+   - **Scopes**: Add these required scopes:
+     - `../auth/calendar.readonly`
+     - `../auth/calendar.events.readonly`
+     - `../auth/calendar.calendars.readonly`
+     - `../auth/userinfo.profile`
+     - `../auth/userinfo.email`
 4. Choose **Web application** as the application type
-5. Add these authorized redirect URIs:
+5. **⚠️ IMPORTANT**: Add these exact authorized redirect URIs:
    - `http://localhost:3000/api/calendar/callback` (for development)
-   - `https://yourdomain.com/api/calendar/callback` (for production)
+   - `https://yourdomain.com/api/calendar/callback` (for production - replace with your actual domain)
 6. Click **Create**
 7. Download the JSON credentials file
 
 ### 4. Configure Environment Variables
 
-Create a `.env.local` file in your project root with:
+Copy `env.example` to `.env.local` and fill in your values:
 
 ```env
 # Google Calendar API Configuration
-GOOGLE_CLIENT_ID=your_client_id_from_json_file
-GOOGLE_CLIENT_SECRET=your_client_secret_from_json_file
+# Get these from Google Cloud Console -> APIs & Services -> Credentials
+GOOGLE_CLIENT_ID=your_client_id_from_google_cloud_console.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=your_client_secret_from_google_cloud_console
 GOOGLE_REDIRECT_URI=http://localhost:3000/api/calendar/callback
 
-# Base URL for your application
-NEXT_PUBLIC_BASE_URL=http://localhost:3000
+# For production, use your domain:
+# GOOGLE_REDIRECT_URI=https://yourdomain.com/api/calendar/callback
 ```
+
+**📝 Note**: The redirect URI in your `.env.local` must exactly match one of the URIs you added in Google Cloud Console.
 
 ### 5. Install Dependencies
 
@@ -54,84 +73,108 @@ The required packages are already installed:
 
 ## 🔧 How It Works
 
+### New Features (Multiple Account Support)
+- **Multiple Google Calendar Accounts**: Users can connect multiple Google accounts to their Firebase account
+- **Account Switching**: Seamlessly switch between different Google Calendar accounts
+- **Per-User Storage**: Calendar data is isolated per Firebase user
+- **Smart Cleanup**: Calendar data is only cleared when user logs out of Firebase (not when switching calendar accounts)
+
 ### User Flow
-1. User clicks "Connect Google Calendar" on the dashboard
-2. They're redirected to Google's OAuth consent screen
-3. After granting permissions, they're redirected back to your app
-4. The app stores the access tokens securely
-5. User can now fetch their calendar data and get insights
+1. User signs in with Firebase (their main account)
+2. User clicks "Connect Google Calendar" to add calendar accounts
+3. They can connect multiple Google accounts and switch between them
+4. Each Google account maintains its own calendar data and settings
+5. All calendar accounts are cleared only when user logs out of Firebase
 
 ### API Endpoints
 
 - `GET /api/calendar/auth` - Generates OAuth URL
-- `POST /api/calendar/auth` - Exchanges code for tokens
-- `GET /api/calendar/events` - Fetches calendar events
-- `GET /api/calendar/callback` - Handles OAuth redirect
+- `GET /api/calendar/callback` - Handles OAuth redirect and token exchange
+- `GET /api/calendar/events` - Fetches calendar events for active account
+- `GET /api/calendar/calendars` - Fetches calendar list for active account
 
-### Features
+### Account Management Features
 
-- **Seamless OAuth Flow**: Users don't need to manually configure anything
-- **Secure Token Storage**: Tokens are stored in localStorage (consider encryption for production)
-- **Analytics**: Provides insights on meeting patterns, productivity trends
-- **Past Data**: Fetches up to 1 year of calendar history
-- **Real-time Updates**: Can refresh data anytime
+- **Connect Multiple Accounts**: Add as many Google Calendar accounts as needed
+- **Switch Accounts**: Easily switch between connected accounts
+- **Disconnect Accounts**: Remove specific Google accounts
+- **Persistent Storage**: Account connections persist across sessions
+- **User Isolation**: Each Firebase user has their own set of connected Google accounts
 
-## 🛡️ Security Considerations
+## 🛡️ Security & Privacy
+
+### Data Isolation
+- **Firebase User Separation**: Calendar data is completely isolated per Firebase user
+- **Account-Specific Storage**: Each Google account's data is stored separately
+- **Secure Token Management**: Tokens are associated with both Firebase user and Google account IDs
+- **Automatic Cleanup**: All calendar data is cleared when user logs out of Firebase
 
 ### For Production
-1. **Encrypt Tokens**: Consider encrypting tokens before storing in localStorage
-2. **HTTPS Only**: Ensure your production domain uses HTTPS
-3. **Token Refresh**: Implement automatic token refresh logic
+1. **Update Redirect URI**: Change `GOOGLE_REDIRECT_URI` to use HTTPS and your production domain
+2. **OAuth Credentials**: Use separate OAuth credentials for production
+3. **Token Security**: Consider encrypting tokens before storing
 4. **Rate Limiting**: Add rate limiting to API endpoints
-5. **Error Handling**: Implement proper error handling for expired tokens
 
-### Environment Variables
-- Never commit `.env.local` to version control
-- Use different OAuth credentials for development and production
-- Regularly rotate client secrets
+## 📊 Multiple Account Benefits
 
-## 📊 Data Retrieved
+### Use Cases
+- **Personal + Work**: Connect both personal and work Google accounts
+- **Multiple Organizations**: Manage calendars from different companies
+- **Family Sharing**: Connect family members' calendars
+- **Client Management**: Access client calendars (with permission)
 
-The API fetches and analyzes:
-- **Event Details**: Title, description, location, attendees
-- **Time Patterns**: Meeting frequency, duration, time of day
-- **Productivity Insights**: Deep work blocks, administrative tasks
-- **Collaboration Metrics**: Team meetings, external meetings
-- **Analytics**: Monthly trends, day-of-week patterns
+### Data Insights
+- **Cross-Account Analytics**: View insights across all connected accounts
+- **Account-Specific Analysis**: Focus on specific account patterns
+- **Comprehensive View**: Get a complete picture of your time usage
 
 ## 🚨 Troubleshooting
 
+### OAuth Redirect URI Issues
+
+**Error: "redirect_uri_mismatch"**
+1. Check that your `.env.local` has: `GOOGLE_REDIRECT_URI=http://localhost:3000/api/calendar/callback`
+2. Verify this exact URI is added in Google Cloud Console → Credentials → OAuth 2.0 Client IDs
+3. Make sure there are no extra spaces or trailing slashes
+4. For production, update both the environment variable and Google Console with your HTTPS domain
+
+**Error: "Access denied"**
+- Verify the OAuth consent screen is configured correctly
+- Check that Google Calendar API is enabled in your project
+- Ensure your app is not in testing mode with restricted users
+
+### Account Management Issues
+
+**Cannot switch between accounts**
+- Check browser console for errors
+- Verify that multiple accounts are actually connected
+- Clear localStorage and reconnect accounts if needed
+
+**Data not clearing on logout**
+- Ensure you're logging out of Firebase, not just disconnecting calendar accounts
+- Check that `onAuthStateChanged` is properly detecting logout
+
 ### Common Issues
 
-1. **"Invalid redirect URI"**
-   - Ensure the redirect URI in Google Console matches exactly
-   - Check for trailing slashes or protocol mismatches
+1. **"Invalid client"**
+   - Verify client ID and secret in your `.env.local`
+   - Check that OAuth credentials are for the correct project
 
-2. **"Access denied"**
-   - Verify the OAuth consent screen is configured
-   - Check that the API is enabled in your project
-
-3. **"Quota exceeded"**
+2. **"Quota exceeded"**
    - Check your Google Cloud Console quotas
    - Consider implementing caching for frequently accessed data
 
-4. **"Token expired"**
-   - Implement token refresh logic
-   - Handle expired tokens gracefully
-
-### Debug Mode
-Add this to your `.env.local` for detailed logging:
-```env
-DEBUG=googleapis:*
-```
+3. **"Token expired"**
+   - The app handles token refresh automatically
+   - If issues persist, disconnect and reconnect the account
 
 ## 📈 Next Steps
 
-1. **Enhanced Analytics**: Add more sophisticated data analysis
-2. **Real-time Sync**: Implement webhook-based real-time updates
-3. **Multiple Calendars**: Support for multiple Google accounts
-4. **Export Features**: Allow users to export their insights
-5. **Integration**: Connect with other productivity tools
+1. **Enhanced Analytics**: Cross-account insights and comparisons
+2. **Calendar Sync**: Two-way synchronization with external calendars
+3. **Team Features**: Shared calendar insights for teams
+4. **Export Features**: Export insights across all connected accounts
+5. **Advanced Permissions**: Granular control over calendar access
 
 ## 🔗 Useful Links
 

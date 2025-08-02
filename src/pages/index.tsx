@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/router";
 import Logo from "../components/web/Logo";
 import LoginButton from "../components/web/LoginButton";
+import FlovySlogan from "../components/app/FlovySlogan";
 import { useAuth } from "../contexts/AuthContext";
 
 export default function Home() {
@@ -29,25 +30,27 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-white to-blue-50 dark:from-gray-900 dark:to-gray-800 flex flex-col">
+      <nav className="flex justify-between items-center p-4">
+        <div className="mb-6 flex items-center">
+          <Logo className="mx-auto" width={50} height={50} />
+          <span className="text-xl sm:text-2xl font-extrabold tracking-tight text-gray-900 dark:text-white ml-4">
+            flovy.ai
+          </span>
+        </div>
+      </nav>
       {/* Hero Section */}
       <header className="flex flex-col items-center justify-center flex-1 px-4 py-24 text-center">
         {/* Logo Placeholder */}
-        <div className="mb-6">
-          <Logo className="mx-auto" width={100} height={100} />
+
+        {/* Flovy Slogan Component */}
+        <div className="w-full max-w-4xl mx-auto mb-8">
+          <FlovySlogan />
         </div>
-        <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white mb-4">
-          flovy.ai
-        </h1>
-        <p className="text-xl sm:text-2xl text-gray-700 dark:text-gray-300 max-w-2xl mx-auto mb-8">
-          An AI-powered productivity assistant that helps you plan your day and
-          understands you.
-        </p>
-        <LoginButton className="mb-4">Get Started with Google</LoginButton>
       </header>
 
       {/* Product Description Section */}
       <section className="max-w-3xl mx-auto px-4 py-12">
-        <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white text-center">
+        <h2 className="text-2xl font-semibold mb-4 text-gray-900 dark:text-white text-center">
           Why flovy.ai?
         </h2>
         <ul className="space-y-6 text-gray-700 dark:text-gray-300 text-lg">

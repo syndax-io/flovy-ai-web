@@ -7,6 +7,7 @@ import Card from "../components/app/Card";
 import Modal from "../components/app/Modal";
 import GoogleCalendarIntegration from "../components/app/GoogleCalendarIntegration";
 import AISuggestions from "../components/app/AISuggestions";
+
 import { useAuth } from "../contexts/AuthContext";
 
 interface CardData {

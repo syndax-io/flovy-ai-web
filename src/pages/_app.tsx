@@ -1,22 +1,18 @@
 import type { AppProps } from "next/app";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import { AuthProvider } from "../contexts/AuthContext";
 import "../styles/globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  display: "swap",
 });
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <AuthProvider>
-      <div className={`${geistSans.variable} ${geistMono.variable}`}>
+      <div className={`${inter.variable} font-sans`}>
         <Component {...pageProps} />
       </div>
     </AuthProvider>

@@ -32,7 +32,7 @@ const FlovySlogan: React.FC = () => {
         setCurrentSloganIndex((prev) => (prev + 1) % slogans.length);
         setIsVisible(true);
       }, 300); // Half of transition duration
-    }, 5000); // Change every 5 seconds
+    }, 2000); // Change every 2 seconds
 
     return () => clearInterval(interval);
   }, []);

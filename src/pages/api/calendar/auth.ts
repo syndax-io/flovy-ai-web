@@ -9,7 +9,7 @@ const getRedirectUri = () => {
   
   // Default for development
   return process.env.NODE_ENV === 'production' 
-    ? 'https://your-domain.com/api/calendar/callback'
+    ? 'https://flovy.ai/api/calendar/callback'
     : 'http://localhost:3000/api/calendar/callback';
 };
 

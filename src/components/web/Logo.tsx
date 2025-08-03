@@ -2,7 +2,11 @@
 
 import React, { useEffect, useRef } from "react";
 
-const Logo: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
+interface LogoProps extends React.SVGProps<SVGSVGElement> {
+  size?: number;
+}
+
+const Logo: React.FC<LogoProps> = ({ size = 32, ...props }) => {
   const svgRef = useRef<SVGSVGElement>(null);
 
   useEffect(() => {
@@ -25,24 +29,26 @@ const Logo: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
     <svg
       ref={svgRef}
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      strokeWidth={1.5}
-      stroke="currentColor"
+      viewBox="0 0 32 32"
+      width={size}
+      height={size}
       fill="none"
       aria-label="Flovy Logo"
       className="animate-fade-in-scale"
       style={{
         opacity: 0,
-        transform: "scale(0.8) translateY(10px)",
+        transform: "scale(0.2) translateY(10px)",
       }}
       {...props}
     >
-      {" "}
+      <rect width="32" height="32" rx="6" fill="#3B82F6" />
       <path
+        stroke="white"
+        strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
-        d="M2.25 18 9 11.25l4.306 4.306a11.95 11.95 0 0 1 5.814-5.518l2.74-1.22m0 0-5.94-2.281m5.94 2.28-2.28 5.941"
-      />{" "}
+        d="M6 24L12 18L16.306 22.306A11.95 11.95 0 0 1 22.12 16.788L24.86 15.568m0 0L18.92 13.287m5.94 2.28L21.64 21.508"
+      />
     </svg>
   );
 };

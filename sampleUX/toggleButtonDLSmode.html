@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Theme Toggler</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <style type="text/tailwindcss">
+        :root {
+            --primary-color: #3b82f6;
+            --primary-hover: #2563eb;
+            --light-bg: #ffffff;
+            --light-container-bg: #f1f5f9;
+            --light-icon-color: #64748b;
+            --light-active-text: #ffffff;
+            --light-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            
+            --dark-bg: #0f172a;
+            --dark-container-bg: #1e293b;
+            --dark-icon-color: #94a3b8;
+            --dark-active-text: #ffffff;
+            --dark-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s ease;
+        }
+
+        body.light {
+            background-color: var(--light-bg);
+        }
+
+        body.dark {
+            background-color: var(--dark-bg);
+        }
+
+        .theme-toggle-container {
+            background-color: var(--light-container-bg);
+            transition: background-color 0.3s ease;
+        }
+
+        body.dark .theme-toggle-container {
+            background-color: var(--dark-container-bg);
+        }
+
+        .theme-option input:checked + .theme-option-label {
+            background-color: var(--primary-color);
+            color: var(--light-active-text);
+            box-shadow: var(--light-shadow);
+            transform: scale(1.05);
+        }
+
+        body.dark .theme-option input:checked + .theme-option-label {
+            box-shadow: var(--dark-shadow);
+        }
+
+        .theme-option input:checked + .theme-option-label .material-icons {
+            color: var(--light-active-text);
+        }
+
+        .theme-option .material-icons {
+            color: var(--light-icon-color);
+            transition: color 0.3s ease;
+        }
+
+        body.dark .theme-option .material-icons {
+            color: var(--dark-icon-color);
+        }
+
+        .theme-option-label {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .theme-option-label:hover {
+            transform: scale(1.1);
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+
+        body.dark .theme-option-label:hover {
+            background-color: rgba(59, 130, 246, 0.2);
+        }
+
+        .theme-option input:checked + .theme-option-label:hover {
+            background-color: var(--primary-hover);
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+
+<body class="light flex items-center justify-center min-h-screen">
+    <div class="p-2 rounded-full theme-toggle-container inline-flex space-x-2 shadow-lg">
+        <div class="theme-option relative">
+            <input class="absolute h-0 w-0 opacity-0" id="light" name="theme" type="radio" value="light" />
+            <label class="theme-option-label flex items-center justify-center w-14 h-14 rounded-full cursor-pointer"
+                for="light">
+                <span class="material-icons text-xl">light_mode</span>
+            </label>
+        </div>
+        <div class="theme-option relative">
+            <input class="absolute h-0 w-0 opacity-0" id="dark" name="theme" type="radio" value="dark" />
+            <label class="theme-option-label flex items-center justify-center w-14 h-14 rounded-full cursor-pointer"
+                for="dark">
+                <span class="material-icons text-xl">dark_mode</span>
+            </label>
+        </div>
+        <div class="theme-option relative">
+            <input checked="" class="absolute h-0 w-0 opacity-0" id="system" name="theme" type="radio" value="system" />
+            <label class="theme-option-label flex items-center justify-center w-14 h-14 rounded-full cursor-pointer"
+                for="system">
+                <span class="material-icons text-xl">devices</span>
+            </label>
+        </div>
+    </div>
+
+    <script>
+        // Theme management
+        class ThemeManager {
+            constructor() {
+                this.theme = localStorage.getItem('theme') || 'system';
+                this.init();
+            }
+
+            init() {
+                // Set initial theme
+                this.setTheme(this.theme);
+
+                // Add event listeners
+                document.querySelectorAll('input[name="theme"]').forEach(radio => {
+                    radio.addEventListener('change', (e) => {
+                        this.setTheme(e.target.value);
+                    });
+                });
+
+                // Set the correct radio button
+                document.getElementById(this.theme).checked = true;
+            }
+
+            setTheme(theme) {
+                this.theme = theme;
+                localStorage.setItem('theme', theme);
+
+                if (theme === 'system') {
+                    this.applySystemTheme();
+                } else {
+                    document.body.className = theme;
+                }
+            }
+
+            applySystemTheme() {
+                const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                document.body.className = isDark ? 'dark' : 'light';
+            }
+        }
+
+        // Initialize theme manager
+        const themeManager = new ThemeManager();
+
+        // Listen for system theme changes
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            if (themeManager.theme === 'system') {
+                themeManager.applySystemTheme();
+            }
+        });
+    </script>
+</body>
+
+</html>

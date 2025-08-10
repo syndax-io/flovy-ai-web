@@ -7,6 +7,7 @@ import Head from "next/head";
 import Logo from "../components/web/Logo";
 import FlovySlogan from "../components/app/FlovySlogan";
 import DevLoginButton from "../components/web/DevLoginButton";
+import ThemeToggle from "../components/web/ThemeToggle";
 
 import { useAuth } from "../contexts/AuthContext";
 
@@ -81,8 +82,9 @@ export default function Home() {
             </a>{" "}
           </div>{" "}
         </nav>{" "}
-        <div className="flex items-center">
+        <div className="flex items-center gap-4">
           {" "}
+          <ThemeToggle />{" "}
           <button className="bg-[#0d7ff2] text-white rounded-lg px-6 py-3 font-semibold hover:saturate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-transform transform hover:scale-105">
             {" "}
             Join Waitlist{" "}
@@ -123,10 +125,12 @@ export default function Home() {
             <div className="text-center mb-16">
               {" "}
               <h2 className="text-4xl font-bold text-gray-900">
-                Unlock Seamless Productivity
+                {" "}
+                Unlock Seamless Productivity{" "}
               </h2>{" "}
               <p className="mt-4 text-lg text-gray-600">
-                Integrate your favorite tools and let Flovy handle the rest.
+                {" "}
+                Integrate your favorite tools and let Flovy handle the rest.{" "}
               </p>{" "}
             </div>{" "}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
@@ -136,15 +140,18 @@ export default function Home() {
                 <div className="flex items-center justify-center h-16 w-16 rounded-full bg-indigo-100 mx-auto mb-6">
                   {" "}
                   <span className="material-icons text-indigo-500 text-3xl">
-                    calendar_today
+                    {" "}
+                    calendar_today{" "}
                   </span>{" "}
                 </div>{" "}
                 <h3 className="text-2xl font-semibold text-gray-900 mb-3">
-                  Calendar Integration
+                  {" "}
+                  Calendar Integration{" "}
                 </h3>{" "}
                 <p className="text-gray-600">
+                  {" "}
                   Connect your calendar to effortlessly manage appointments and
-                  deadlines.
+                  deadlines.{" "}
                 </p>{" "}
               </div>{" "}
               <div className="text-center p-8 bg-white rounded-xl shadow-md transition transform hover:-translate-y-2">
@@ -152,15 +159,18 @@ export default function Home() {
                 <div className="flex items-center justify-center h-16 w-16 rounded-full bg-indigo-100 mx-auto mb-6">
                   {" "}
                   <span className="material-icons text-indigo-500 text-3xl">
-                    task_alt
+                    {" "}
+                    task_alt{" "}
                   </span>{" "}
                 </div>{" "}
                 <h3 className="text-2xl font-semibold text-gray-900 mb-3">
-                  Goal & Priority Tracking
+                  {" "}
+                  Goal & Priority Tracking{" "}
                 </h3>{" "}
                 <p className="text-gray-600">
+                  {" "}
                   Define and track your goals with built-in tools for detailed
-                  planning.
+                  planning.{" "}
                 </p>{" "}
               </div>{" "}
               <div className="text-center p-8 bg-white rounded-xl shadow-md transition transform hover:-translate-y-2">
@@ -168,15 +178,18 @@ export default function Home() {
                 <div className="flex items-center justify-center h-16 w-16 rounded-full bg-indigo-100 mx-auto mb-6">
                   {" "}
                   <span className="material-icons text-indigo-500 text-3xl">
-                    integration_instructions
+                    {" "}
+                    integration_instructions{" "}
                   </span>{" "}
                 </div>{" "}
                 <h3 className="text-2xl font-semibold text-gray-900 mb-3">
-                  Deep Integrations
+                  {" "}
+                  Deep Integrations{" "}
                 </h3>{" "}
                 <p className="text-gray-600">
+                  {" "}
                   Connect with Notion, Google Drive, and more for a unified
-                  workflow.
+                  workflow.{" "}
                 </p>{" "}
               </div>{" "}
             </div>{" "}
@@ -192,52 +205,62 @@ export default function Home() {
               <div>
                 {" "}
                 <h2 className="text-3xl font-bold text-gray-900 mb-6">
-                  For Busy Professionals & CEOs
+                  {" "}
+                  For Busy Professionals & CEOs{" "}
                 </h2>{" "}
                 <ul className="space-y-4">
                   {" "}
                   <li className="flex items-start">
                     {" "}
                     <span className="material-icons text-green-500 mr-3 mt-1">
-                      check_circle
+                      {" "}
+                      check_circle{" "}
                     </span>{" "}
                     <div>
                       {" "}
                       <h4 className="font-semibold text-lg">
-                        Enhanced Time Management
+                        {" "}
+                        Enhanced Time Management{" "}
                       </h4>{" "}
                       <p className="text-gray-600">
-                        Automate scheduling and prioritize tasks effectively.
+                        {" "}
+                        Automate scheduling and prioritize tasks effectively.{" "}
                       </p>{" "}
                     </div>{" "}
                   </li>{" "}
                   <li className="flex items-start">
                     {" "}
                     <span className="material-icons text-green-500 mr-3 mt-1">
-                      check_circle
+                      {" "}
+                      check_circle{" "}
                     </span>{" "}
                     <div>
                       {" "}
                       <h4 className="font-semibold text-lg">
-                        Clear Goal Setting
+                        {" "}
+                        Clear Goal Setting{" "}
                       </h4>{" "}
                       <p className="text-gray-600">
-                        Align daily actions with strategic objectives.
+                        {" "}
+                        Align daily actions with strategic objectives.{" "}
                       </p>{" "}
                     </div>{" "}
                   </li>{" "}
                   <li className="flex items-start">
                     {" "}
                     <span className="material-icons text-green-500 mr-3 mt-1">
-                      check_circle
+                      {" "}
+                      check_circle{" "}
                     </span>{" "}
                     <div>
                       {" "}
                       <h4 className="font-semibold text-lg">
-                        Improved Productivity
+                        {" "}
+                        Improved Productivity{" "}
                       </h4>{" "}
                       <p className="text-gray-600">
-                        Focus on high-impact work that moves the needle.
+                        {" "}
+                        Focus on high-impact work that moves the needle.{" "}
                       </p>{" "}
                     </div>{" "}
                   </li>{" "}
@@ -246,53 +269,63 @@ export default function Home() {
               <div>
                 {" "}
                 <h2 className="text-3xl font-bold text-gray-900 mb-6">
-                  For Ambitious Students
+                  {" "}
+                  For Ambitious Students{" "}
                 </h2>{" "}
                 <ul className="space-y-4">
                   {" "}
                   <li className="flex items-start">
                     {" "}
                     <span className="material-icons text-green-500 mr-3 mt-1">
-                      check_circle
+                      {" "}
+                      check_circle{" "}
                     </span>{" "}
                     <div>
                       {" "}
                       <h4 className="font-semibold text-lg">
-                        Organized Study Schedule
+                        {" "}
+                        Organized Study Schedule{" "}
                       </h4>{" "}
                       <p className="text-gray-600">
-                        Balance coursework and manage deadlines with ease.
+                        {" "}
+                        Balance coursework and manage deadlines with ease.{" "}
                       </p>{" "}
                     </div>{" "}
                   </li>{" "}
                   <li className="flex items-start">
                     {" "}
                     <span className="material-icons text-green-500 mr-3 mt-1">
-                      check_circle
+                      {" "}
+                      check_circle{" "}
                     </span>{" "}
                     <div>
                       {" "}
                       <h4 className="font-semibold text-lg">
-                        Efficient Note-Taking
+                        {" "}
+                        Efficient Note-Taking{" "}
                       </h4>{" "}
                       <p className="text-gray-600">
-                        Keep your notes structured, organized, and accessible.
+                        {" "}
+                        Keep your notes structured, organized, and accessible.{" "}
                       </p>{" "}
                     </div>{" "}
                   </li>{" "}
                   <li className="flex items-start">
                     {" "}
                     <span className="material-icons text-green-500 mr-3 mt-1">
-                      check_circle
+                      {" "}
+                      check_circle{" "}
                     </span>{" "}
                     <div>
                       {" "}
                       <h4 className="font-semibold text-lg">
-                        Academic Success
+                        {" "}
+                        Academic Success{" "}
                       </h4>{" "}
                       <p className="text-gray-600">
+                        {" "}
                         Build habits that will prepare you for your future
-                        career.
+                        career.{" "}
                       </p>{" "}
                     </div>{" "}
                   </li>{" "}
@@ -307,11 +340,13 @@ export default function Home() {
           <div className="container mx-auto px-6 py-20 text-center">
             {" "}
             <h2 className="text-4xl font-bold text-gray-900">
-              Ready to Focus on What Matters?
+              {" "}
+              Ready to Focus on What Matters?{" "}
             </h2>{" "}
             <p className="mt-4 max-w-2xl mx-auto text-lg text-gray-600">
+              {" "}
               Join Flovy today and take control of your time and priorities.
-              Unlock your full potential.
+              Unlock your full potential.{" "}
             </p>{" "}
             <div className="mt-8">
               {" "}

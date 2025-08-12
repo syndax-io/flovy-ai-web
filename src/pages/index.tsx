@@ -53,28 +53,28 @@ export default function Home() {
           <div className="flex space-x-8">
             {" "}
             <a
-              className="text-[#637488] hover:text-[#0d7ff2] font-medium transition-colors"
+              className="text-[#637488] dark:text-gray-300 hover:text-[#0d7ff2] dark:hover:text-blue-400 font-medium transition-colors"
               href="#"
             >
               {" "}
               Product{" "}
             </a>{" "}
             <a
-              className="text-[#637488] hover:text-[#0d7ff2] font-medium transition-colors"
+              className="text-[#637488] dark:text-gray-300 hover:text-[#0d7ff2] dark:hover:text-blue-400 font-medium transition-colors"
               href="#"
             >
               {" "}
               Pricing{" "}
             </a>{" "}
             <a
-              className="text-[#637488] hover:text-[#0d7ff2] font-medium transition-colors"
+              className="text-[#637488] dark:text-gray-300 hover:text-[#0d7ff2] dark:hover:text-blue-400 font-medium transition-colors"
               href="#"
             >
               {" "}
               Resources{" "}
             </a>{" "}
             <a
-              className="text-[#637488] hover:text-[#0d7ff2] font-medium transition-colors"
+              className="text-[#637488] dark:text-gray-300 hover:text-[#0d7ff2] dark:hover:text-blue-400 font-medium transition-colors"
               href="#"
             >
               {" "}
@@ -103,7 +103,7 @@ export default function Home() {
               {" "}
               <FlovySlogan />{" "}
             </div>{" "}
-            <p className="mt-6 max-w-2xl mx-auto text-lg text-gray-600">
+            <p className="mt-6 max-w-2xl mx-auto text-lg text-gray-600 dark:text-gray-300">
               {" "}
               Flovy is your one-stop AI workspace to organize, plan, and execute
               tasks across all your tools without switching context.{" "}
@@ -118,75 +118,75 @@ export default function Home() {
           </div>{" "}
         </section>{" "}
         {/* Unlock Seamless Productivity Section */}
-        <section className="py-20 bg-gray-50">
+        <section className="py-20 bg-gray-50 dark:bg-gray-900">
           {" "}
           <div className="container mx-auto px-6">
             {" "}
             <div className="text-center mb-16">
               {" "}
-              <h2 className="text-4xl font-bold text-gray-900">
+              <h2 className="text-4xl font-bold text-gray-900 dark:text-white">
                 {" "}
                 Unlock Seamless Productivity{" "}
               </h2>{" "}
-              <p className="mt-4 text-lg text-gray-600">
+              <p className="mt-4 text-lg text-gray-600 dark:text-gray-300">
                 {" "}
                 Integrate your favorite tools and let Flovy handle the rest.{" "}
               </p>{" "}
             </div>{" "}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
               {" "}
-              <div className="text-center p-8 bg-white rounded-xl shadow-md transition transform hover:-translate-y-2">
+              <div className="text-center p-8 bg-white dark:bg-gray-800 rounded-xl shadow-md transition transform hover:-translate-y-2">
                 {" "}
-                <div className="flex items-center justify-center h-16 w-16 rounded-full bg-indigo-100 mx-auto mb-6">
+                <div className="flex items-center justify-center h-16 w-16 rounded-full bg-indigo-100 dark:bg-indigo-900 mx-auto mb-6">
                   {" "}
-                  <span className="material-icons text-indigo-500 text-3xl">
+                  <span className="material-icons text-indigo-500 dark:text-indigo-400 text-3xl">
                     {" "}
                     calendar_today{" "}
                   </span>{" "}
                 </div>{" "}
-                <h3 className="text-2xl font-semibold text-gray-900 mb-3">
+                <h3 className="text-2xl font-semibold text-gray-900 dark:text-white mb-3">
                   {" "}
                   Calendar Integration{" "}
                 </h3>{" "}
-                <p className="text-gray-600">
+                <p className="text-gray-600 dark:text-gray-300">
                   {" "}
                   Connect your calendar to effortlessly manage appointments and
                   deadlines.{" "}
                 </p>{" "}
               </div>{" "}
-              <div className="text-center p-8 bg-white rounded-xl shadow-md transition transform hover:-translate-y-2">
+              <div className="text-center p-8 bg-white dark:bg-gray-800 rounded-xl shadow-md transition transform hover:-translate-y-2">
                 {" "}
-                <div className="flex items-center justify-center h-16 w-16 rounded-full bg-indigo-100 mx-auto mb-6">
+                <div className="flex items-center justify-center h-16 w-16 rounded-full bg-indigo-100 dark:bg-indigo-900 mx-auto mb-6">
                   {" "}
-                  <span className="material-icons text-indigo-500 text-3xl">
+                  <span className="material-icons text-indigo-500 dark:text-indigo-400 text-3xl">
                     {" "}
                     task_alt{" "}
                   </span>{" "}
                 </div>{" "}
-                <h3 className="text-2xl font-semibold text-gray-900 mb-3">
+                <h3 className="text-2xl font-semibold text-gray-900 dark:text-white mb-3">
                   {" "}
                   Goal & Priority Tracking{" "}
                 </h3>{" "}
-                <p className="text-gray-600">
+                <p className="text-gray-600 dark:text-gray-300">
                   {" "}
                   Define and track your goals with built-in tools for detailed
                   planning.{" "}
                 </p>{" "}
               </div>{" "}
-              <div className="text-center p-8 bg-white rounded-xl shadow-md transition transform hover:-translate-y-2">
+              <div className="text-center p-8 bg-white dark:bg-gray-800 rounded-xl shadow-md transition transform hover:-translate-y-2">
                 {" "}
-                <div className="flex items-center justify-center h-16 w-16 rounded-full bg-indigo-100 mx-auto mb-6">
+                <div className="flex items-center justify-center h-16 w-16 rounded-full bg-indigo-100 dark:bg-indigo-900 mx-auto mb-6">
                   {" "}
-                  <span className="material-icons text-indigo-500 text-3xl">
+                  <span className="material-icons text-indigo-500 dark:text-indigo-400 text-3xl">
                     {" "}
                     integration_instructions{" "}
                   </span>{" "}
                 </div>{" "}
-                <h3 className="text-2xl font-semibold text-gray-900 mb-3">
+                <h3 className="text-2xl font-semibold text-gray-900 dark:text-white mb-3">
                   {" "}
                   Deep Integrations{" "}
                 </h3>{" "}
-                <p className="text-gray-600">
+                <p className="text-gray-600 dark:text-gray-300">
                   {" "}
                   Connect with Notion, Google Drive, and more for a unified
                   workflow.{" "}
@@ -196,7 +196,7 @@ export default function Home() {
           </div>{" "}
         </section>{" "}
         {/* For Busy Professionals & CEOs Section */}
-        <section className="py-20 bg-white">
+        <section className="py-20 bg-white dark:bg-gray-800">
           {" "}
           <div className="container mx-auto px-6">
             {" "}
@@ -204,7 +204,7 @@ export default function Home() {
               {" "}
               <div>
                 {" "}
-                <h2 className="text-3xl font-bold text-gray-900 mb-6">
+                <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
                   {" "}
                   For Busy Professionals & CEOs{" "}
                 </h2>{" "}
@@ -218,11 +218,11 @@ export default function Home() {
                     </span>{" "}
                     <div>
                       {" "}
-                      <h4 className="font-semibold text-lg">
+                      <h4 className="font-semibold text-lg text-gray-900 dark:text-white">
                         {" "}
                         Enhanced Time Management{" "}
                       </h4>{" "}
-                      <p className="text-gray-600">
+                      <p className="text-gray-600 dark:text-gray-300">
                         {" "}
                         Automate scheduling and prioritize tasks effectively.{" "}
                       </p>{" "}
@@ -236,11 +236,11 @@ export default function Home() {
                     </span>{" "}
                     <div>
                       {" "}
-                      <h4 className="font-semibold text-lg">
+                      <h4 className="font-semibold text-lg text-gray-900 dark:text-white">
                         {" "}
                         Clear Goal Setting{" "}
                       </h4>{" "}
-                      <p className="text-gray-600">
+                      <p className="text-gray-600 dark:text-gray-300">
                         {" "}
                         Align daily actions with strategic objectives.{" "}
                       </p>{" "}
@@ -254,11 +254,11 @@ export default function Home() {
                     </span>{" "}
                     <div>
                       {" "}
-                      <h4 className="font-semibold text-lg">
+                      <h4 className="font-semibold text-lg text-gray-900 dark:text-white">
                         {" "}
                         Improved Productivity{" "}
                       </h4>{" "}
-                      <p className="text-gray-600">
+                      <p className="text-gray-600 dark:text-gray-300">
                         {" "}
                         Focus on high-impact work that moves the needle.{" "}
                       </p>{" "}
@@ -268,7 +268,7 @@ export default function Home() {
               </div>{" "}
               <div>
                 {" "}
-                <h2 className="text-3xl font-bold text-gray-900 mb-6">
+                <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
                   {" "}
                   For Ambitious Students{" "}
                 </h2>{" "}
@@ -282,11 +282,11 @@ export default function Home() {
                     </span>{" "}
                     <div>
                       {" "}
-                      <h4 className="font-semibold text-lg">
+                      <h4 className="font-semibold text-lg text-gray-900 dark:text-white">
                         {" "}
                         Organized Study Schedule{" "}
                       </h4>{" "}
-                      <p className="text-gray-600">
+                      <p className="text-gray-600 dark:text-gray-300">
                         {" "}
                         Balance coursework and manage deadlines with ease.{" "}
                       </p>{" "}
@@ -300,11 +300,11 @@ export default function Home() {
                     </span>{" "}
                     <div>
                       {" "}
-                      <h4 className="font-semibold text-lg">
+                      <h4 className="font-semibold text-lg text-gray-900 dark:text-white">
                         {" "}
                         Efficient Note-Taking{" "}
                       </h4>{" "}
-                      <p className="text-gray-600">
+                      <p className="text-gray-600 dark:text-gray-300">
                         {" "}
                         Keep your notes structured, organized, and accessible.{" "}
                       </p>{" "}
@@ -318,11 +318,11 @@ export default function Home() {
                     </span>{" "}
                     <div>
                       {" "}
-                      <h4 className="font-semibold text-lg">
+                      <h4 className="font-semibold text-lg text-gray-900 dark:text-white">
                         {" "}
                         Academic Success{" "}
                       </h4>{" "}
-                      <p className="text-gray-600">
+                      <p className="text-gray-600 dark:text-gray-300">
                         {" "}
                         Build habits that will prepare you for your future
                         career.{" "}
@@ -335,15 +335,15 @@ export default function Home() {
           </div>{" "}
         </section>{" "}
         {/* Ready to Focus Section */}
-        <section className="bg-gray-50">
+        <section className="bg-gray-50 dark:bg-gray-900">
           {" "}
           <div className="container mx-auto px-6 py-20 text-center">
             {" "}
-            <h2 className="text-4xl font-bold text-gray-900">
+            <h2 className="text-4xl font-bold text-gray-900 dark:text-white">
               {" "}
               Ready to Focus on What Matters?{" "}
             </h2>{" "}
-            <p className="mt-4 max-w-2xl mx-auto text-lg text-gray-600">
+            <p className="mt-4 max-w-2xl mx-auto text-lg text-gray-600 dark:text-gray-300">
               {" "}
               Join Flovy today and take control of your time and priorities.
               Unlock your full potential.{" "}
@@ -359,35 +359,35 @@ export default function Home() {
         </section>{" "}
       </main>{" "}
       {/* Footer */}
-      <footer className="bg-white dark:bg-gray-800 py-10 mt-12 border-t">
+      <footer className="bg-white dark:bg-gray-800 py-10 mt-12 border-t border-gray-200 dark:border-gray-700">
         {" "}
         <div className="container mx-auto px-4 text-center">
           {" "}
           <div className="flex flex-wrap items-center justify-center gap-6 mb-6">
             {" "}
             <a
-              className="text-[#637488] hover:text-[#0d7ff2] font-medium transition-colors"
+              className="text-[#637488] dark:text-gray-300 hover:text-[#0d7ff2] dark:hover:text-blue-400 font-medium transition-colors"
               href="#"
             >
               {" "}
               Product{" "}
             </a>{" "}
             <a
-              className="text-[#637488] hover:text-[#0d7ff2] font-medium transition-colors"
+              className="text-[#637488] dark:text-gray-300 hover:text-[#0d7ff2] dark:hover:text-blue-400 font-medium transition-colors"
               href="#"
             >
               {" "}
               Pricing{" "}
             </a>{" "}
             <a
-              className="text-[#637488] hover:text-[#0d7ff2] font-medium transition-colors"
+              className="text-[#637488] dark:text-gray-300 hover:text-[#0d7ff2] dark:hover:text-blue-400 font-medium transition-colors"
               href="#"
             >
               {" "}
               Resources{" "}
             </a>{" "}
             <a
-              className="text-[#637488] hover:text-[#0d7ff2] font-medium transition-colors"
+              className="text-[#637488] dark:text-gray-300 hover:text-[#0d7ff2] dark:hover:text-blue-400 font-medium transition-colors"
               href="#"
             >
               {" "}

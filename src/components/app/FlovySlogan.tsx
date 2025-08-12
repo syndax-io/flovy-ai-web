@@ -46,7 +46,7 @@ const FlovySlogan: React.FC = () => {
 
   return (
     <div className="text-center">
-      <h1 className="text-5xl md:text-7xl font-extrabold text-gray-900 leading-tight">
+      <h1 className="text-5xl md:text-7xl font-extrabold text-gray-900 dark:text-white leading-tight">
         Your Personal AI <br />
         <span className="gradient-text">
           {displayedText}

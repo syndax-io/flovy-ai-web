@@ -47,6 +47,14 @@ body {
   background-clip: text;
 }
 
+/* Dark mode gradient text */
+.dark .gradient-text {
+  background: linear-gradient(90deg, #ababab, #5754ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
 /* Cursor pointer for all clickable elements */
 button,
 [role="button"],

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 const slogans = [
   "Your AI Clarity Coach",
@@ -45,20 +45,14 @@ const FlovySlogan: React.FC = () => {
   }, [currentSloganIndex]);
 
   return (
-    <div className="rounded-lg p-8 mb-8">
-      <div className="text-center">
-        <h1 className="text-3xl md:text-3xl font text-gray-700 dark:text-white mb-4">
-          <span className="font-bold text-4xl md:text-8xl gradient-text text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-purple-600">
-            Flovy AI
-          </span>
-          <span className="block mt-2" style={{ minHeight: "1.5em" }}>
-            {displayedText}
-            <span className="inline-block text-gray-700 dark:text-white ml-1 text-3xl md:text-4xl">
-              _
-            </span>
-          </span>
-        </h1>
-      </div>
+    <div className="text-center">
+      <h1 className="text-5xl md:text-7xl font-extrabold text-gray-900 dark:text-white leading-tight">
+        Your Personal AI <br />
+        <span className="gradient-text">
+          {displayedText}
+          <span className="inline-block ml-1 text-5xl md:text-7xl">_</span>
+        </span>
+      </h1>
     </div>
   );
 };

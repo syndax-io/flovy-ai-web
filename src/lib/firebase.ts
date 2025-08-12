@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, GoogleAuthProvider, setPersistence, browserLocalPersistence, browserSessionPersistence, inMemoryPersistence } from 'firebase/auth';
+import { getAuth, GoogleAuthProvider, setPersistence, browserLocalPersistence, browserSessionPersistence, inMemoryPersistence, signInWithPopup, signOut } from 'firebase/auth';
 
 // Your Firebase config - you'll need to replace these with your actual values
 const firebaseConfig = {
@@ -39,5 +39,26 @@ setPersistence(auth, persistence)
 
 // Google Auth Provider
 export const googleProvider = new GoogleAuthProvider();
+
+// Sign in with Google function
+export const signInWithGoogle = async () => {
+  try {
+    const result = await signInWithPopup(auth, googleProvider);
+    return result;
+  } catch (error) {
+    console.error('Error signing in with Google:', error);
+    throw error;
+  }
+};
+
+// Sign out function
+export const signOutUser = async () => {
+  try {
+    await signOut(auth);
+  } catch (error) {
+    console.error('Error signing out:', error);
+    throw error;
+  }
+};
 
 export default app; 

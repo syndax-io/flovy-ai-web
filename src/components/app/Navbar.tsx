@@ -3,6 +3,7 @@
 import React from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import Logo from "../web/Logo";
+import ThemeToggle from "../web/ThemeToggle";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -18,9 +19,6 @@ const Navbar: React.FC = () => {
           {/* Logo and Brand */}
           <div className="flex items-center">
             <Logo className="w-8 h-8 mr-3" />
-            <h1 className="text-xl font-semibold text-gray-900 dark:text-white">
-              flovy.ai
-            </h1>
           </div>
 
           {/* Navigation Links */}
@@ -49,6 +47,9 @@ const Navbar: React.FC = () => {
 
           {/* User Menu */}
           <div className="flex items-center space-x-4">
+            {/* Theme Toggle */}
+            <ThemeToggle />
+
             {user && (
               <>
                 {/* Session Timeout Warning */}

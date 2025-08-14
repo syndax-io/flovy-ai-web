@@ -86,7 +86,7 @@ export default function Home() {
             <div className="mb-8">
               <FlovySlogan />
             </div>
-            <p className="mt-6 max-w-2xl mx-auto text-lg text-gray-600 dark:text-gray-300">
+            <p className="mt-6 max-w-2xl mx-auto text-gray-600 dark:text-gray-300">
               Flovy is your one-stop AI workspace to organize, plan, and execute
               tasks across all your tools without switching context.
             </p>
@@ -101,10 +101,10 @@ export default function Home() {
         <section className="py-20 bg-gray-50 dark:bg-gray-900">
           <div className="container mx-auto px-6">
             <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-gray-900 dark:text-white">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
                 Unlock Seamless Productivity
               </h2>
-              <p className="mt-4 text-lg text-gray-600 dark:text-gray-300">
+              <p className="mt-4 text-gray-600 dark:text-gray-300">
                 Integrate your favorite tools and let Flovy handle the rest.
               </p>
             </div>

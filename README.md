@@ -11,7 +11,7 @@ flovy.ai is a next-generation productivity assistant that goes beyond traditiona
 - **Personalized Focus**: Connects to your calendar, goals, and past activities to give daily suggestions on what to focus on.
 - **Holistic Tracking**: Keeps track of your habits, energy levels, and tasks you've been avoiding helping you stay aligned with your long-term goals.
 - **Evolving Intelligence**: The more you use it, the smarter it gets. flovy.ai learns from your behavior, refines its recommendations, and adapts to your working style and ambitions.
-- **Beyond Task Management**: Not just a task manager. It's a thought partner, motivation coach, and daily strategist built with AI.
+- **Beyond Task Management**: Not just a task manager. It's a thought partner, a context-aware productivity system for leaders, and daily strategist built with AI.
 
 ## Tech Stack
 

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 
 const slogans = [
-  "Your AI Clarity Coach",
   "Your Personal Success Architect",
   "Unlocking Your Potential",
   "Your Path to Peak Performance",
@@ -27,32 +26,43 @@ const FlovySlogan: React.FC = () => {
     let charIndex = 0;
 
     // Typing animation
-    const typeInterval = setInterval(() => {
-      if (charIndex <= currentSlogan.length) {
-        setDisplayedText(currentSlogan.slice(0, charIndex));
-        charIndex++;
-      } else {
-        clearInterval(typeInterval);
+    const typeInterval = setInterval(
+      () => {
+        if (charIndex <= currentSlogan.length) {
+          setDisplayedText(currentSlogan.slice(0, charIndex));
+          charIndex++;
+        } else {
+          clearInterval(typeInterval);
 
-        // Wait before next slogan
-        setTimeout(() => {
-          setCurrentSloganIndex((prev) => (prev + 1) % slogans.length);
-        }, 2000); // Wait 2 seconds before next slogan
-      }
-    }, 100); // Type speed
+          // Wait before next slogan
+          setTimeout(
+            () => {
+              setCurrentSloganIndex((prev) => (prev + 1) % slogans.length);
+            },
+
+            2000
+          ); // Wait 2 seconds before next slogan
+        }
+      },
+
+      100
+    ); // Type speed
 
     return () => clearInterval(typeInterval);
   }, [currentSloganIndex]);
 
   return (
     <div className="text-center">
+      {" "}
       <h1 className="text-xl sm:text-3xl md:text-7xl font-extrabold text-gray-900 dark:text-white leading-tight">
-        Your Personal AI <br />
+        {" "}
+        Your Personal AI <br />{" "}
         <span className="gradient-text">
+          {" "}
           {displayedText}
-          <span className="inline-block ml-1">_</span>
-        </span>
-      </h1>
+          <span className="inline-block ml-1">_</span>{" "}
+        </span>{" "}
+      </h1>{" "}
     </div>
   );
 };

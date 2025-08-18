@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { useRouter } from "next/router";
 import Head from "next/head";
@@ -8,18 +8,23 @@ import Logo from "../components/web/Logo";
 import FlovySlogan from "../components/app/FlovySlogan";
 import DevLoginButton from "../components/web/DevLoginButton";
 import ThemeToggle from "../components/web/ThemeToggle";
+import JoinWaitlistModal from "../components/app/JoinWaitlistModal";
 
 import { useAuth } from "../contexts/AuthContext";
 
 export default function Home() {
   const { user, loading } = useAuth();
   const router = useRouter();
+  const [waitlistOpen, setWaitlistOpen] = useState(false);
 
   useEffect(() => {
     if (!loading && user) {
       router.push("/dashboard");
     }
   }, [user, loading, router]);
+
+  const openWaitlist = () => setWaitlistOpen(true);
+  const closeWaitlist = () => setWaitlistOpen(false);
 
   if (loading) {
     return (
@@ -73,7 +78,10 @@ export default function Home() {
         </nav>
         <div className="flex items-center gap-4">
           <ThemeToggle />
-          <button className="bg-[#0d7ff2] text-white rounded-lg px-6 py-3 font-semibold hover:saturate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-transform transform hover:scale-105">
+          <button
+            onClick={openWaitlist}
+            className="bg-[#0d7ff2] text-white rounded-lg px-6 py-3 font-semibold hover:saturate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-transform transform hover:scale-105"
+          >
             Join Waitlist
           </button>
         </div>
@@ -91,7 +99,10 @@ export default function Home() {
               tasks across all your tools without switching context.
             </p>
             <div className="mt-10">
-              <button className="bg-indigo-500 text-white font-semibold px-8 py-4 rounded-lg hover:bg-indigo-600 transition duration-300 text-lg">
+              <button
+                onClick={openWaitlist}
+                className="bg-indigo-500 text-white font-semibold px-8 py-4 rounded-lg hover:bg-indigo-600 transition duration-300 text-lg"
+              >
                 Join Waitlist
               </button>
             </div>
@@ -265,7 +276,10 @@ export default function Home() {
               Unlock your full potential.
             </p>
             <div className="mt-8">
-              <button className="bg-indigo-500 text-white font-semibold px-6 py-3 rounded-lg hover:bg-indigo-600 transition duration-300">
+              <button
+                onClick={openWaitlist}
+                className="bg-indigo-500 text-white font-semibold px-6 py-3 rounded-lg hover:bg-indigo-600 transition duration-300"
+              >
                 Join Waitlist
               </button>
             </div>
@@ -308,6 +322,9 @@ export default function Home() {
       </footer>
       {/* Development Login Button - Only visible in dev mode */}
       <DevLoginButton />
+
+      {/* Join Waitlist Modal */}
+      <JoinWaitlistModal isOpen={waitlistOpen} onClose={closeWaitlist} />
     </div>
   );
 }

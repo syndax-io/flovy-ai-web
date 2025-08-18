@@ -53,16 +53,13 @@ const FlovySlogan: React.FC = () => {
 
   return (
     <div className="text-center">
-      {" "}
       <h1 className="text-xl sm:text-3xl md:text-7xl font-extrabold text-gray-900 dark:text-white leading-tight">
-        {" "}
-        Your Personal AI <br />{" "}
+        Your Personal AI <br />
         <span className="gradient-text">
-          {" "}
           {displayedText}
-          <span className="inline-block ml-1">_</span>{" "}
-        </span>{" "}
-      </h1>{" "}
+          <span className="inline-block ml-1">_</span>
+        </span>
+      </h1>
     </div>
   );
 };

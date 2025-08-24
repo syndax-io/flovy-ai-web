@@ -78,86 +78,7 @@ export const useGoogleCalendar = () => {
   const [connectedAccounts, setConnectedAccounts] = useState<CalendarAccount[]>([]);
   const [activeAccount, setActiveAccount] = useState<CalendarAccount | null>(null);
 
-  // Listen to Firebase auth state changes and clear calendar data ONLY on logout
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      console.log('Auth state changed:', user?.uid);
-      
-      // Only clear when user logs out (user becomes null)
-      if (currentUser && !user) {
-        console.log('User logged out, clearing all calendar data');
-        setConnectedAccounts([]);
-        setActiveAccount(null);
-        setIsAuthenticated(false);
-        setCalendarData(null);
-        setCalendarList(null);
-        setSelectedCalendars(['primary']);
-        setError(null);
-        clearAllCalendarStorage();
-      }
-      
-      setCurrentUser(user);
-    });
-
-    return () => unsubscribe();
-  }, [currentUser]);
-
-  // Load connected accounts for current user
-  useEffect(() => {
-    if (!currentUser) return;
-
-    const loadConnectedAccounts = () => {
-      const accountsKey = `googleCalendarAccounts_${currentUser.uid}`;
-      const selectedKey = `googleCalendarSelected_${currentUser.uid}`;
-      
-      const storedAccounts = localStorage.getItem(accountsKey);
-      const storedSelected = localStorage.getItem(selectedKey);
-      
-      if (storedAccounts) {
-        try {
-          const accounts = JSON.parse(storedAccounts);
-          setConnectedAccounts(accounts);
-          
-          // Set the first connected account as active if none is active
-          if (accounts.length > 0 && !activeAccount) {
-            setActiveAccount(accounts[0]);
-            setIsAuthenticated(true);
-          }
-        } catch {
-          localStorage.removeItem(accountsKey);
-        }
-      }
-
-      if (storedSelected) {
-        try {
-          const calendars = JSON.parse(storedSelected);
-          setSelectedCalendars(calendars);
-        } catch {
-          localStorage.removeItem(selectedKey);
-        }
-      }
-    };
-
-    loadConnectedAccounts();
-  }, [currentUser, activeAccount]);
-
-  // Handle OAuth tokens from URL params
-  useEffect(() => {
-    if (!currentUser) return;
-
-    const urlParams = new URLSearchParams(window.location.search);
-    const access_token = urlParams.get('access_token');
-    const refresh_token = urlParams.get('refresh_token');
-    const expiry_date = urlParams.get('expiry_date');
-
-    if (access_token && refresh_token) {
-      addNewCalendarAccount(access_token, refresh_token, parseInt(expiry_date || '0'));
-      // Clean up URL
-      window.history.replaceState({}, document.title, window.location.pathname);
-    }
-  }, [currentUser]);
-
-  const clearAllCalendarStorage = () => {
+  const clearAllCalendarStorage = useCallback(() => {
     if (!currentUser) return;
     
     const accountsKey = `googleCalendarAccounts_${currentUser.uid}`;
@@ -165,9 +86,9 @@ export const useGoogleCalendar = () => {
     
     localStorage.removeItem(accountsKey);
     localStorage.removeItem(selectedKey);
-  };
+  }, [currentUser]);
 
-  const addNewCalendarAccount = async (access_token: string, refresh_token: string, expiry_date: number) => {
+  const addNewCalendarAccount = useCallback(async (access_token: string, refresh_token: string, expiry_date: number) => {
     if (!currentUser) return;
 
     try {
@@ -216,7 +137,89 @@ export const useGoogleCalendar = () => {
       console.error('Error adding calendar account:', error);
       setError('Failed to add calendar account');
     }
-  };
+  }, [currentUser, connectedAccounts]);
+
+  // Listen to Firebase auth state changes and clear calendar data ONLY on logout
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      console.log('Auth state changed:', user?.uid);
+      
+      // Only clear when user logs out (user becomes null)
+      if (currentUser && !user) {
+        console.log('User logged out, clearing all calendar data');
+        setConnectedAccounts([]);
+        setActiveAccount(null);
+        setIsAuthenticated(false);
+        setCalendarData(null);
+        setCalendarList(null);
+        setSelectedCalendars(['primary']);
+        setError(null);
+        clearAllCalendarStorage();
+      }
+      
+      setCurrentUser(user);
+    });
+
+    return () => unsubscribe();
+  }, [currentUser, clearAllCalendarStorage]);
+
+  // Load connected accounts for current user
+  useEffect(() => {
+    if (!currentUser) return;
+
+    const loadConnectedAccounts = () => {
+      const accountsKey = `googleCalendarAccounts_${currentUser.uid}`;
+      const selectedKey = `googleCalendarSelected_${currentUser.uid}`;
+      
+      const storedAccounts = localStorage.getItem(accountsKey);
+      const storedSelected = localStorage.getItem(selectedKey);
+      
+      if (storedAccounts) {
+        try {
+          const accounts = JSON.parse(storedAccounts);
+          setConnectedAccounts(accounts);
+          
+          // Set the first connected account as active if none is active
+          if (accounts.length > 0 && !activeAccount) {
+            setActiveAccount(accounts[0]);
+            setIsAuthenticated(true);
+          }
+        } catch {
+          localStorage.removeItem(accountsKey);
+        }
+      }
+
+      if (storedSelected) {
+        try {
+          const calendars = JSON.parse(storedSelected);
+          setSelectedCalendars(calendars);
+        } catch {
+          localStorage.removeItem(selectedKey);
+        }
+      }
+    };
+
+    loadConnectedAccounts();
+  }, [currentUser, activeAccount]);
+  // Handle OAuth tokens from URL params
+  useEffect(() => {
+    if (!currentUser) return;
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const access_token = urlParams.get('access_token');
+    const refresh_token = urlParams.get('refresh_token');
+    const expiry_date = urlParams.get('expiry_date');
+
+    if (access_token && refresh_token) {
+      addNewCalendarAccount(access_token, refresh_token, parseInt(expiry_date || '0'));
+      // Clean up URL
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+  }, [currentUser, addNewCalendarAccount]);
+
+
+
+
 
   const switchAccount = useCallback((accountId: string) => {
     const account = connectedAccounts.find(acc => acc.id === accountId);
@@ -263,7 +266,7 @@ export const useGoogleCalendar = () => {
     setCalendarList(null);
     setSelectedCalendars(['primary']);
     clearAllCalendarStorage();
-  }, [currentUser]);
+  }, [currentUser,clearAllCalendarStorage]);
 
   const authenticate = useCallback(async () => {
     if (!currentUser) {

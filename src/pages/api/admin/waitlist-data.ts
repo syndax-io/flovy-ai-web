@@ -66,7 +66,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     
     // Format the data to show survey responses
     const contacts = data.contacts || data || [];
-    const formattedContacts = contacts.map((contact: any) => ({
+    const formattedContacts = contacts.map((contact: {
+      email: string;
+      attributes?: {
+        FIRSTNAME?: string;
+        CHALLENGE?: string;
+        GOAL?: string;
+        URGENCY?: string;
+        SOURCE?: string;
+      };
+      createdAt: string;
+      modifiedAt: string;
+    }) => ({
       email: contact.email,
       name: contact.attributes?.FIRSTNAME || "N/A",
       challenge: contact.attributes?.CHALLENGE || "N/A",
@@ -81,8 +92,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       total: formattedContacts.length,
       contacts: formattedContacts,
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error fetching waitlist data:", error);
-    return res.status(500).json({ error: error?.message || "Unexpected error" });
+    const errorMessage = error instanceof Error ? error.message : "Unexpected error";
+    return res.status(500).json({ error: errorMessage });
   }
 }

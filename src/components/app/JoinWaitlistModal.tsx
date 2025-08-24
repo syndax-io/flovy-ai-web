@@ -87,7 +87,8 @@ const JoinWaitlistModal: React.FC<JoinWaitlistModalProps> = ({
       {submitted ? (
         <div className="text-center py-6">
           <p className="text-gray-700 dark:text-gray-300">
-            Thanks{name ? `, ${name}` : ""}! We'll email you when we’re ready.
+            Thanks{name ? `, ${name}` : ""}! We&apos;ll email you when
+            we&apos;re ready.
           </p>
           <button
             onClick={handleClose}
@@ -127,7 +128,7 @@ const JoinWaitlistModal: React.FC<JoinWaitlistModalProps> = ({
 
           <div>
             <label className="block text-sm font-medium text-gray-900 dark:text-white mb-1">
-              What’s your biggest challenge right now?
+              What&apos;s your biggest challenge right now?
             </label>
             <select
               value={challenge}
@@ -182,7 +183,7 @@ const JoinWaitlistModal: React.FC<JoinWaitlistModalProps> = ({
 
           <div className="flex items-center justify-between pt-2">
             <p className="text-xs text-gray-500 dark:text-gray-400">
-              Short and sweet. We’ll never spam you.
+              Short and sweet. We&apos;ll never spam you.
             </p>
             <button
               type="submit"

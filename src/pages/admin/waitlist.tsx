@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Head from "next/head";
 import { useAuth } from "../../contexts/AuthContext";
 import { useRouter } from "next/router";
@@ -28,23 +28,7 @@ export default function WaitlistAdmin() {
   const [loadingData, setLoadingData] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (!loading) {
-      if (!user) {
-        router.push("/");
-        return;
-      }
-
-      if (user.email !== "faiz@flovy.ai") {
-        router.push("/");
-        return;
-      }
-
-      fetchWaitlistData();
-    }
-  }, [user, loading, router]);
-
-  const fetchWaitlistData = async () => {
+  const fetchWaitlistData = useCallback(async () => {
     try {
       setLoadingData(true);
 
@@ -72,7 +56,23 @@ export default function WaitlistAdmin() {
     } finally {
       setLoadingData(false);
     }
-  };
+  }, [user]);
+
+  useEffect(() => {
+    if (!loading) {
+      if (!user) {
+        router.push("/");
+        return;
+      }
+
+      if (user.email !== "faiz@flovy.ai") {
+        router.push("/");
+        return;
+      }
+
+      fetchWaitlistData();
+    }
+  }, [user, loading, router, fetchWaitlistData]);
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleString();

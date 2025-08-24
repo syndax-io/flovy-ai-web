@@ -28,7 +28,7 @@ async function ensureCustomAttributes() {
     }
 
     const existingAttributes = await getRes.json();
-    const existingNames = existingAttributes.attributes?.map((attr: any) => attr.name) || [];
+    const existingNames = existingAttributes.attributes?.map((attr: { name: string }) => attr.name) || [];
 
     // Create missing attributes
     for (const attr of CUSTOM_ATTRIBUTES) {
@@ -80,7 +80,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     await ensureCustomAttributes();
 
     // Prepare attributes - only include non-empty values
-    const attributes: any = {
+    const attributes: Record<string, string | undefined> = {
       FIRSTNAME: name || undefined,
       SOURCE: "flovy_waitlist",
     };
@@ -91,7 +91,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (urgency) attributes.URGENCY = urgency;
 
     // Create/Update contact in Brevo
-    const payload: any = {
+    const payload: {
+      email: string;
+      attributes: Record<string, string | undefined>;
+      updateEnabled: boolean;
+      listIds?: number[];
+    } = {
       email,
       attributes,
       updateEnabled: true,
@@ -181,8 +186,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     return res.status(200).json({ ok: true });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Unexpected error:", error);
-    return res.status(500).json({ error: error?.message || "Unexpected error" });
+    const errorMessage = error instanceof Error ? error.message : "Unexpected error";
+    return res.status(500).json({ error: errorMessage });
   }
 }

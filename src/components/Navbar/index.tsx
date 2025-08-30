@@ -2,8 +2,8 @@
 
 import React from "react";
 import { useAuth } from "../../contexts/AuthContext";
-import Logo from "../web/Logo";
-import ThemeToggle from "../web/ThemeToggle";
+import Logo from "../Logo";
+import ThemeToggle from "../ThemeToggle";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";

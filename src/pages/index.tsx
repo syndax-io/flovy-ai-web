@@ -4,11 +4,11 @@ import { useEffect, useState } from "react";
 
 import { useRouter } from "next/router";
 import Head from "next/head";
-import Logo from "../components/web/Logo";
-import FlovySlogan from "../components/app/FlovySlogan";
-import DevLoginButton from "../components/web/DevLoginButton";
-import ThemeToggle from "../components/web/ThemeToggle";
-import JoinWaitlistModal from "../components/app/JoinWaitlistModal";
+import Logo from "../components/Logo";
+import FlovySlogan from "../components/FlovySlogan";
+import DevLoginButton from "../components/DevLoginButton";
+import ThemeToggle from "../components/ThemeToggle";
+import JoinWaitlistModal from "../components/JoinWaitlistModal";
 
 import { useAuth } from "../contexts/AuthContext";
 

@@ -1,0 +1,60 @@
+# Tailwind CSS and Styling Conventions
+
+## Tailwind CSS Usage
+- Use Tailwind CSS classes for all styling
+- Implement dark mode support with `dark:` prefixes
+- Use consistent color schemes: blue, green, purple, gray, red, yellow variants
+- Follow responsive design patterns with Tailwind breakpoints
+- Use proper spacing and typography scales
+
+## Component Styling Patterns
+Reference [src/components/Card/index.tsx](mdc:src/components/Card/index.tsx) for variant-based styling:
+
+```typescript
+const getVariantStyles = () => {
+  switch (variant) {
+    case "blue":
+      return {
+        bg: "bg-blue-50 dark:bg-blue-900/20",
+        title: "text-blue-900 dark:text-blue-100",
+        description: "text-blue-700 dark:text-blue-300",
+        border: "border-blue-200 dark:border-blue-800",
+      };
+    // ... other variants
+  }
+};
+```
+
+## Dark Mode Support
+Always include dark mode variants:
+- Background: `bg-gray-50 dark:bg-gray-900/20`
+- Text: `text-gray-900 dark:text-gray-100`
+- Borders: `border-gray-200 dark:border-gray-700`
+
+## Interactive Elements
+For clickable components, use:
+```typescript
+const interactiveClasses = clickable 
+  ? "hover:shadow-md hover:scale-105 transition-all duration-200 cursor-pointer"
+  : "";
+```
+
+## Responsive Design
+Use Tailwind breakpoints consistently:
+- `sm:` for small screens (640px+)
+- `md:` for medium screens (768px+)
+- `lg:` for large screens (1024px+)
+- `xl:` for extra large screens (1280px+)
+
+## Global Styles
+Reference [src/styles/globals.css](mdc:src/styles/globals.css) for global styling patterns and custom CSS variables.
+
+## Accessibility
+- Maintain proper color contrast ratios
+- Use semantic HTML elements
+- Implement proper focus states
+- Test with screen readers
+description:
+globs:
+alwaysApply: false
+---

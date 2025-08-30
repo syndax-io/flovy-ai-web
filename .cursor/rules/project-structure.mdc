@@ -1,0 +1,39 @@
+# Flovy AI Web - Project Structure
+
+This is a Next.js 15 application for flovy.ai, an AI-powered productivity assistant. The project uses TypeScript, Tailwind CSS, Firebase, and Google Calendar integration.
+
+## Key Files and Directories
+
+- **Main App**: [src/app/page.tsx](mdc:src/app/page.tsx) - Main landing page
+- **Layout**: [src/app/layout.tsx](mdc:src/app/layout.tsx) - Root layout component
+- **Global Styles**: [src/styles/globals.css](mdc:src/styles/globals.css) - Global CSS styles
+- **Configuration**: [next.config.ts](mdc:next.config.ts) - Next.js configuration
+- **TypeScript Config**: [tsconfig.json](mdc:tsconfig.json) - TypeScript settings with path mapping
+- **Package Config**: [package.json](mdc:package.json) - Dependencies and scripts
+
+## Component Structure
+All components are in [src/components/](mdc:src/components/) with individual directories containing index.tsx files:
+- [src/components/Card/index.tsx](mdc:src/components/Card/index.tsx) - Reusable card component with variants
+- [src/components/Navbar/index.tsx](mdc:src/components/Navbar/index.tsx) - Navigation component
+- [src/components/ThemeToggle/index.tsx](mdc:src/components/ThemeToggle/index.tsx) - Dark/light mode toggle
+- [src/components/LoginButton/index.tsx](mdc:src/components/LoginButton/index.tsx) - Authentication button
+- [src/components/GoogleCalendarIntegration/index.tsx](mdc:src/components/GoogleCalendarIntegration/index.tsx) - Calendar integration
+
+## API Routes
+API routes are in [src/app/api/](mdc:src/app/api/) following Next.js 15 App Router conventions:
+- [src/app/api/suggestions/route.ts](mdc:src/app/api/suggestions/route.ts) - AI suggestions endpoint
+- [src/pages/api/waitlist.ts](mdc:src/pages/api/waitlist.ts) - Waitlist management
+- [src/pages/api/admin/waitlist-data.ts](mdc:src/pages/api/admin/waitlist-data.ts) - Admin waitlist data
+
+## Context and State Management
+- [src/contexts/AuthContext.tsx](mdc:src/contexts/AuthContext.tsx) - Authentication state
+- [src/contexts/ThemeContext.tsx](mdc:src/contexts/ThemeContext.tsx) - Theme state management
+
+## Configuration and Utilities
+- [src/lib/firebase.ts](mdc:src/lib/firebase.ts) - Firebase configuration
+- [src/lib/aiModels.ts](mdc:src/lib/aiModels.ts) - AI model configurations
+- [src/config/session.ts](mdc:src/config/session.ts) - Session management
+description:
+globs:
+alwaysApply: false
+---

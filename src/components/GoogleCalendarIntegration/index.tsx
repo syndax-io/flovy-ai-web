@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import { useGoogleCalendar } from "../../hooks/useGoogleCalendar";
-import Card from "./Card";
+import Card from "../Card";
 
 const GoogleCalendarIntegration: React.FC = () => {
   const {

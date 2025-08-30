@@ -1,0 +1,79 @@
+# Next.js API Routes Conventions
+
+## API Route Structure
+Follow Next.js 15 App Router conventions for API routes in [src/app/api/](mdc:src/app/api/):
+
+```typescript
+import { NextRequest, NextResponse } from "next/server";
+
+export async function GET(request: NextRequest) {
+  try {
+    // API logic here
+    return NextResponse.json({ success: true, data: result });
+  } catch (error) {
+    console.error('API Error:', error);
+    return NextResponse.json(
+      { error: "Internal Server Error" }, 
+      { status: 500 }
+    );
+  }
+}
+
+export async function POST(request: NextRequest) {
+  try {
+    const body = await request.json();
+    // Process request body
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    return NextResponse.json(
+      { error: "Bad Request" }, 
+      { status: 400 }
+    );
+  }
+}
+```
+
+## Error Handling
+- Always wrap API logic in try-catch blocks
+- Return proper HTTP status codes
+- Log errors for debugging
+- Provide meaningful error messages
+
+## Authentication
+For protected routes, use Firebase Auth:
+- Reference [src/lib/firebase.ts](mdc:src/lib/firebase.ts) for Firebase setup
+- Verify authentication tokens
+- Check user permissions
+
+## External API Integration
+For Google Calendar and OpenAI integration:
+- Use environment variables for API keys
+- Implement proper rate limiting
+- Handle API errors gracefully
+- Reference [src/lib/aiModels.ts](mdc:src/lib/aiModels.ts) for AI configurations
+
+## Response Format
+Maintain consistent response format:
+```typescript
+// Success response
+{ success: true, data: result }
+
+// Error response
+{ success: false, error: "Error message" }
+```
+
+## CORS and Security
+- Set proper CORS headers when needed
+- Validate input data
+- Sanitize user inputs
+- Use HTTPS in production
+
+## Examples
+Reference existing API routes:
+- [src/app/api/suggestions/route.ts](mdc:src/app/api/suggestions/route.ts) - AI suggestions
+- [src/pages/api/waitlist.ts](mdc:src/pages/api/waitlist.ts) - Waitlist management
+- [src/pages/api/admin/waitlist-data.ts](mdc:src/pages/api/admin/waitlist-data.ts) - Admin data
+description: From now on create all APIs under `src/app/api/`
+globs:
+alwaysApply: false
+---

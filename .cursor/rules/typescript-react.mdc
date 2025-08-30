@@ -1,0 +1,59 @@
+# TypeScript and React Conventions
+
+## Component Structure
+Follow this exact pattern for all React components:
+
+```typescript
+import React from "react";
+
+interface ComponentNameProps {
+  // Define all props with proper types
+  children?: React.ReactNode;
+  className?: string;
+  // Add other props as needed
+}
+
+const ComponentName: React.FC<ComponentNameProps> = ({
+  children,
+  className = "",
+  // Destructure with default values
+}) => {
+  // Component logic here
+  
+  return (
+    // JSX with proper TypeScript
+  );
+};
+
+export default ComponentName;
+```
+
+## TypeScript Best Practices
+- Use strict TypeScript with proper type definitions
+- Prefer interfaces over types for object shapes
+- Use React.FC for functional components
+- Always define prop interfaces for components
+- Use proper generic types where applicable
+- Use absolute imports with `@/` prefix (configured in [tsconfig.json](mdc:tsconfig.json))
+
+## Component Patterns
+- Use functional components with hooks
+- Follow the component structure: imports → interface → component → export
+- Use proper prop destructuring with default values
+- Implement proper error boundaries where needed
+- Use React.memo for performance optimization when appropriate
+
+## File Organization
+- Each component gets its own directory with an index.tsx file
+- Use the pattern: `src/components/ComponentName/index.tsx`
+- Reference existing components like [src/components/Card/index.tsx](mdc:src/components/Card/index.tsx) for examples
+
+## State Management
+- Use React Context for global state (see [src/contexts/AuthContext.tsx](mdc:src/contexts/AuthContext.tsx))
+- Use custom hooks for reusable logic (see [src/hooks/useGoogleCalendar.ts](mdc:src/hooks/useGoogleCalendar.ts))
+- Implement proper error handling and loading states
+- Use Firebase for persistent state management
+description:
+globs:
+alwaysApply: false
+---

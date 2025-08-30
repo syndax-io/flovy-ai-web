@@ -1,12 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import ProtectedRoute from "../components/app/ProtectedRoute";
-import Navbar from "../components/app/Navbar";
-import Card from "../components/app/Card";
-import Modal from "../components/app/Modal";
-import GoogleCalendarIntegration from "../components/app/GoogleCalendarIntegration";
-import AISuggestions from "../components/app/AISuggestions";
+import ProtectedRoute from "../components/ProtectedRoute";
+import Navbar from "../components/Navbar";
+import Card from "../components/Card";
+import Modal from "../components/Modal";
+import GoogleCalendarIntegration from "../components/GoogleCalendarIntegration";
+import AISuggestions from "../components/AISuggestions";
 
 import { useAuth } from "../contexts/AuthContext";
 

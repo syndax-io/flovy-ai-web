@@ -5,7 +5,7 @@ import { SuggestionResponse, UserProfile } from "../../lib/aiModels";
 import React, { useEffect, useState } from "react";
 
 import { marked } from "marked";
-import Modal from "./Modal";
+import Modal from "../Modal";
 
 interface AISuggestionsProps {
   cardData: CardData[]; // Using the cardData from dashboard

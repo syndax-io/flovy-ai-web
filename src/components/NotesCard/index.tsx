@@ -20,11 +20,16 @@ interface NotesCardProps {
 export default function NotesCard({ onNotesUpdate }: NotesCardProps) {
   const [notes, setNotes] = useState<Note[]>([]);
   const [isAddingNote, setIsAddingNote] = useState(false);
-  const [newNote, setNewNote] = useState({
+  const [newNote, setNewNote] = useState<{
+    title: string;
+    content: string;
+    type: "goal" | "note" | "reminder";
+    priority: "high" | "medium" | "low";
+  }>({
     title: "",
     content: "",
-    type: "note" as const,
-    priority: "medium" as const,
+    type: "note",
+    priority: "medium",
   });
 
   // Load notes from localStorage on component mount
@@ -177,7 +182,10 @@ export default function NotesCard({ onNotesUpdate }: NotesCardProps) {
               <select
                 value={newNote.type}
                 onChange={(e) =>
-                  setNewNote({ ...newNote, type: e.target.value as any })
+                  setNewNote({
+                    ...newNote,
+                    type: e.target.value as "goal" | "note" | "reminder",
+                  })
                 }
                 className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
@@ -188,7 +196,10 @@ export default function NotesCard({ onNotesUpdate }: NotesCardProps) {
               <select
                 value={newNote.priority}
                 onChange={(e) =>
-                  setNewNote({ ...newNote, priority: e.target.value as any })
+                  setNewNote({
+                    ...newNote,
+                    priority: e.target.value as "high" | "medium" | "low",
+                  })
                 }
                 className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >

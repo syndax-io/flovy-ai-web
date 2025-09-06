@@ -6,11 +6,7 @@ import GoogleCalendarIntegration from "../components/GoogleCalendarIntegration";
 import AIChatCard from "../components/AIChatCard";
 import NotesCard from "../components/NotesCard";
 
-import { useAuth } from "../contexts/AuthContext";
-
 export default function Dashboard() {
-  const { user } = useAuth();
-
   return (
     <ProtectedRoute>
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900">

@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from 'next/server';
 // In a real application, this would be connected to a database
 // For now, we'll return a structure that AI can use
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     // In a real implementation, you would:
     // 1. Authenticate the user

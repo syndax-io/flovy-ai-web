@@ -3,8 +3,6 @@ import React, { useEffect, useState } from "react";
 import { useGoogleCalendar } from "../../hooks/useGoogleCalendar";
 import Card from "../Card";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
-import RefreshIcon from "@mui/icons-material/Refresh";
 
 const GoogleCalendarIntegration: React.FC = () => {
   const {

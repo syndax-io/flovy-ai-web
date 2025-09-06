@@ -34,7 +34,7 @@ export function useNotes() {
     const savedNotes = localStorage.getItem("dashboard-notes");
     if (savedNotes) {
       try {
-        const parsedNotes = JSON.parse(savedNotes).map((note: any) => ({
+        const parsedNotes = JSON.parse(savedNotes).map((note: { id: string; title: string; content: string; type: string; priority: string; completed: boolean; createdAt: string; updatedAt: string }) => ({
           ...note,
           createdAt: new Date(note.createdAt),
           updatedAt: new Date(note.updatedAt),

@@ -1,4 +1,5 @@
 import { useGoogleCalendar } from "../../hooks/useGoogleCalendar";
+import { useNotes } from "../../hooks/useNotes";
 
 import { SuggestionResponse, UserProfile } from "../../lib/aiModels";
 
@@ -22,6 +23,7 @@ const AISuggestions: React.FC<AISuggestionsProps> = ({
   userName,
 }) => {
   const { calendarData, isAuthenticated } = useGoogleCalendar();
+  const { getNotesForAI, getAIContext } = useNotes();
   const [suggestion, setSuggestion] = useState<SuggestionResponse | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -86,17 +88,18 @@ const AISuggestions: React.FC<AISuggestionsProps> = ({
       setError(null);
 
       try {
-        // Extract goals from card data
-        const goals = cardData
-          .filter((card) => card.id === "goal-progress")
-          .flatMap((card) => card.notes)
-          .slice(0, 3); // Take first 3 goals
+        // Get notes and goals from the NotesCard
+        const notesData = getNotesForAI();
+        const aiContext = getAIContext();
 
-        // Extract recent tasks from card data
-        const recentTasks = cardData
-          .filter((card) => card.id === "daily-focus")
-          .flatMap((card) => card.notes)
-          .slice(0, 3); // Take first 3 tasks
+        // Extract goals from notes data
+        const goals = notesData.activeGoals.map((goal) => goal.title);
+
+        // Extract recent tasks from notes data
+        const recentTasks = notesData.recentNotes
+          .filter((note) => note.type === "note" || note.type === "reminder")
+          .map((note) => note.title)
+          .slice(0, 3);
 
         // Convert calendar events to the expected format
         const calendarEvents = calendarData.events
@@ -113,11 +116,19 @@ const AISuggestions: React.FC<AISuggestionsProps> = ({
             endTime: event.end,
           }));
 
-        // Extract preferences from card data
+        // Extract preferences from AI context and notes
         const preferences = {
-          preferredWorkHours: "9-5",
-          idealEnergyLevels: "High energy in morning",
-          focusTime: "Morning hours",
+          preferredWorkHours: aiContext.timeContext.isWorkHours
+            ? "9-5"
+            : "Flexible",
+          idealEnergyLevels: aiContext.timeContext.isMorning
+            ? "High energy in morning"
+            : "Variable energy",
+          focusTime: aiContext.timeContext.isMorning
+            ? "Morning hours"
+            : "Afternoon hours",
+          highPriorityItems: notesData.stats.highPriorityItems,
+          activeGoalsCount: notesData.stats.activeGoals,
         };
 
         const userProfile: UserProfile = {
@@ -147,6 +158,12 @@ const AISuggestions: React.FC<AISuggestionsProps> = ({
 
           body: JSON.stringify({
             userProfile,
+            notesContext: {
+              notesData,
+              aiContext,
+              timeOfDay: aiContext.timeContext.currentHour,
+              workHours: aiContext.timeContext.isWorkHours,
+            },
           }),
         });
 
@@ -167,7 +184,14 @@ const AISuggestions: React.FC<AISuggestionsProps> = ({
     };
 
     generateSuggestion();
-  }, [isAuthenticated, calendarData, cardData, userName]);
+  }, [
+    isAuthenticated,
+    calendarData,
+    cardData,
+    userName,
+    getNotesForAI,
+    getAIContext,
+  ]);
 
   if (!isAuthenticated) {
     return null; // Don't show if calendar is not connected

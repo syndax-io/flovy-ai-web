@@ -45,19 +45,6 @@ export interface SuggestionResponse {
   isMock?: boolean;
 }
 
-// Mock suggestions for testing without API calls
-const mockSuggestions = [
-  "Focus on completing your most important task first thing this morning when your energy is highest.",
-  "Based on your calendar, you have several meetings today. Prepare key talking points for each one in advance.",
-  "Take advantage of the gaps between meetings to work on your personal goals and projects.",
-  "Since you have a busy schedule today, try to batch similar tasks together to minimize context switching.",
-  "Use the Pomodoro technique to maintain focus during your deep work sessions.",
-  "Review your goals for the week and identify the one task that would make the biggest impact if completed today.",
-  "Schedule some buffer time between meetings to allow for unexpected discussions or follow-ups.",
-  "Consider delegating some of your administrative tasks to free up time for high-value work.",
-  "Take regular breaks throughout the day to maintain your energy and focus levels.",
-  "End your day by planning tomorrow's priorities based on what you accomplished today."
-];
 
 export async function generateProductivitySuggestion(
   userProfile: UserProfile,
@@ -76,13 +63,7 @@ export async function generateProductivitySuggestion(
 async function generateOpenAISuggestion(systemPrompt: string, userPrompt: string): Promise<SuggestionResponse> {
   // Check if API key is available
   if (!process.env.OPENAI_API_KEY) {
-    // Return mock suggestion if no API key
-    const randomSuggestion = mockSuggestions[Math.floor(Math.random() * mockSuggestions.length)];
-    return { 
-      suggestion: randomSuggestion,
-      priority: 'medium',
-      isMock: true
-    };
+    throw new Error('OpenAI API key not configured');
   }
   console.log("OPENAI_API_KEY", process.env.OPENAI_API_KEY);
   try {
@@ -102,40 +83,15 @@ async function generateOpenAISuggestion(systemPrompt: string, userPrompt: string
   } catch (error) {
     console.error('OpenAI API Error:', error);
     
-    // Handle specific error cases
-    if (error instanceof Error) {
-      if (error.message.includes('401')) {
-        console.log('Invalid OpenAI API key, using mock suggestion');
-      } else if (error.message.includes('404')) {
-        console.log('OpenAI model not available, using mock suggestion');
-      } else if (error.message.includes('429') || error.message.includes('quota')) {
-        console.log('OpenAI quota exceeded, using mock suggestion');
-      } else {
-        console.log('OpenAI API error, using mock suggestion');
-      }
-    }
-    
-    // Return mock suggestion for any error
-    const randomSuggestion = mockSuggestions[Math.floor(Math.random() * mockSuggestions.length)];
-    return { 
-      suggestion: randomSuggestion,
-      priority: 'medium',
-      isMock: true
-    };
+    // Re-throw the error to be handled by the calling function
+    throw error;
   }
 }
 
 async function generateGeminiSuggestion(systemPrompt: string, userPrompt: string): Promise<SuggestionResponse> {
   // Check if API key is available
   if (!process.env.GEMINI_API_KEY) {
-    // Return mock suggestion if no API key
-    console.log('No Gemini API key, using mock suggestion');
-    const randomSuggestion = mockSuggestions[Math.floor(Math.random() * mockSuggestions.length)];
-    return { 
-      suggestion: randomSuggestion,
-      priority: 'medium',
-      isMock: true
-    };
+    throw new Error('Gemini API key not configured');
   }
 
   try {
@@ -154,26 +110,8 @@ async function generateGeminiSuggestion(systemPrompt: string, userPrompt: string
   } catch (error) {
     console.error('Gemini API Error:', error);
     
-    // Handle specific error cases
-    if (error instanceof Error) {
-      if (error.message.includes('401') || error.message.includes('403')) {
-        console.log('Invalid Gemini API key, using mock suggestion');
-      } else if (error.message.includes('404')) {
-        console.log('Gemini model not available, using mock suggestion');
-      } else if (error.message.includes('429') || error.message.includes('quota')) {
-        console.log('Gemini quota exceeded, using mock suggestion');
-      } else {
-        console.log('Gemini API error, using mock suggestion');
-      }
-    }
-    
-    // Return mock suggestion for any error
-    const randomSuggestion = mockSuggestions[Math.floor(Math.random() * mockSuggestions.length)];
-    return { 
-      suggestion: randomSuggestion,
-      priority: 'medium',
-      isMock: true
-    };
+    // Re-throw the error to be handled by the calling function
+    throw error;
   }
 }
 

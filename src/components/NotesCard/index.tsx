@@ -32,11 +32,19 @@ export default function NotesCard({ onNotesUpdate }: NotesCardProps) {
     const savedNotes = localStorage.getItem("dashboard-notes");
     if (savedNotes) {
       try {
-        const parsedNotes = JSON.parse(savedNotes).map((note: any) => ({
-          ...note,
-          createdAt: new Date(note.createdAt),
-          updatedAt: new Date(note.updatedAt),
-        }));
+        // Define a type for the raw note object from localStorage before date conversion
+        type RawNoteFromStorage = Omit<Note, "createdAt" | "updatedAt"> & {
+          createdAt: string;
+          updatedAt: string;
+        };
+
+        const parsedNotes = JSON.parse(savedNotes).map(
+          (note: RawNoteFromStorage) => ({
+            ...note,
+            createdAt: new Date(note.createdAt),
+            updatedAt: new Date(note.updatedAt),
+          })
+        );
         setNotes(parsedNotes);
       } catch (error) {
         console.error("Error loading notes:", error);
@@ -106,12 +114,6 @@ export default function NotesCard({ onNotesUpdate }: NotesCardProps) {
     }
   };
 
-  const activeGoals = notes.filter(
-    (note) => note.type === "goal" && !note.completed
-  ).length;
-  const completedGoals = notes.filter(
-    (note) => note.type === "goal" && note.completed
-  ).length;
   const totalNotes = notes.length;
 
   return (
@@ -134,29 +136,13 @@ export default function NotesCard({ onNotesUpdate }: NotesCardProps) {
       </div>
 
       {/* Summary Stats */}
-      <div className="grid grid-cols-3 gap-4 mb-6">
+      <div className="grid grid-cols-1 gap-4 mb-6">
         <div className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg border border-blue-200 dark:border-blue-800">
           <div className="text-lg font-bold text-blue-900 dark:text-blue-100">
             {totalNotes}
           </div>
           <div className="text-xs text-blue-700 dark:text-blue-300">
             Total Notes
-          </div>
-        </div>
-        <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg border border-green-200 dark:border-green-800">
-          <div className="text-lg font-bold text-green-900 dark:text-green-100">
-            {activeGoals}
-          </div>
-          <div className="text-xs text-green-700 dark:text-green-300">
-            Active Goals
-          </div>
-        </div>
-        <div className="bg-purple-50 dark:bg-purple-900/20 p-3 rounded-lg border border-purple-200 dark:border-purple-800">
-          <div className="text-lg font-bold text-purple-900 dark:text-purple-100">
-            {completedGoals}
-          </div>
-          <div className="text-xs text-purple-700 dark:text-purple-300">
-            Completed
           </div>
         </div>
       </div>

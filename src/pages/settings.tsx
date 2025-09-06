@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import ProtectedRoute from "../components/app/ProtectedRoute";
-import Navbar from "../components/app/Navbar";
+import ProtectedRoute from "../components/ProtectedRoute";
+import Navbar from "../components/Navbar";
 import { sessionManager } from "../lib/sessionManager";
 import { PRESET_CONFIGS } from "../config/session";
 

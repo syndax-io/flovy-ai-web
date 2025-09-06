@@ -1,20 +1,21 @@
-# Netlify Deployment Guide for Flovy AI
+# Vercel Deployment Guide for Flovy AI
 
 ## 🚀 Quick Deploy Steps
 
-### 1. Connect to Netlify
-1. Go to [Netlify](https://netlify.com) and sign in
-2. Click "New site from Git"
-3. Connect your GitHub repository
+### 1. Connect to Vercel
+1. Go to [Vercel](https://vercel.com) and sign in
+2. Click "New Project"
+3. Import your GitHub repository
 4. Select the `flovy-ai-web` repository
 
 ### 2. Build Settings
-- **Build command**: `npm run build`
-- **Publish directory**: `.next`
-- **Node version**: 18 (set in netlify.toml)
+- **Framework Preset**: Next.js (auto-detected)
+- **Build Command**: `npm run build` (default)
+- **Output Directory**: `.next` (default)
+- **Install Command**: `npm install` (default)
 
 ### 3. Environment Variables
-Set these in Netlify Dashboard → Site settings → Environment variables:
+Set these in Vercel Dashboard → Project Settings → Environment Variables:
 
 #### Firebase Configuration
 ```
@@ -30,7 +31,7 @@ NEXT_PUBLIC_FIREBASE_APP_ID=your_production_app_id
 ```
 GOOGLE_CLIENT_ID=your_production_google_client_id.apps.googleusercontent.com
 GOOGLE_CLIENT_SECRET=your_production_google_client_secret
-GOOGLE_REDIRECT_URI=https://your-domain.netlify.app/api/calendar/callback
+GOOGLE_REDIRECT_URI=https://your-domain.vercel.app/api/calendar/callback
 ```
 
 #### AI API Keys
@@ -45,37 +46,36 @@ GEMINI_API_KEY=your_production_gemini_api_key
 1. Go to [Google Cloud Console](https://console.cloud.google.com/)
 2. Navigate to **APIs & Services** → **Credentials**
 3. Edit your OAuth 2.0 Client ID
-4. Add your Netlify domain to **Authorized redirect URIs**:
+4. Add your Vercel domain to **Authorized redirect URIs**:
    ```
-   https://your-domain.netlify.app/api/calendar/callback
+   https://your-domain.vercel.app/api/calendar/callback
    ```
-5. Add your Netlify domain to **Authorized JavaScript origins**:
+5. Add your Vercel domain to **Authorized JavaScript origins**:
    ```
-   https://your-domain.netlify.app
+   https://your-domain.vercel.app
    ```
 
 ### 5. Deploy
-1. Click "Deploy site" in Netlify
+1. Click "Deploy" in Vercel
 2. Wait for build to complete
-3. Your site will be live at `https://your-domain.netlify.app`
+3. Your site will be live at `https://your-domain.vercel.app`
 
 ## 🔧 Configuration Files
 
-### netlify.toml
-- Configures build settings
-- Sets Node.js version
-- Enables Next.js plugin
-
 ### next.config.ts
 - Configures image domains for Firebase
-- Optimized for Netlify deployment
+- Optimized for Vercel deployment
+
+### package.json
+- Contains build scripts
+- Lists all dependencies
 
 ## 🛠️ Troubleshooting
 
 ### Build Errors
-- Check Node.js version (should be 18)
+- Check Node.js version (Vercel uses latest LTS)
 - Verify all environment variables are set
-- Check build logs in Netlify dashboard
+- Check build logs in Vercel dashboard
 
 ### OAuth Errors
 - Ensure redirect URI matches exactly in Google Console
@@ -89,11 +89,11 @@ GEMINI_API_KEY=your_production_gemini_api_key
 
 ## 📝 Important Notes
 
-1. **Environment Variables**: All sensitive data should be set in Netlify, not in code
-2. **Domain**: Replace `your-domain.netlify.app` with your actual Netlify domain
-3. **HTTPS**: Netlify provides SSL certificates automatically
-4. **Functions**: API routes will be handled by Netlify Functions
-5. **Performance**: Enable Netlify's CDN for better performance
+1. **Environment Variables**: All sensitive data should be set in Vercel, not in code
+2. **Domain**: Replace `your-domain.vercel.app` with your actual Vercel domain
+3. **HTTPS**: Vercel provides SSL certificates automatically
+4. **API Routes**: Next.js API routes work natively with Vercel
+5. **Performance**: Vercel's Edge Network provides global CDN
 
 ## 🔄 Continuous Deployment
 
@@ -104,6 +104,6 @@ Once connected to Git:
 
 ## 📊 Monitoring
 
-- Check Netlify Analytics for performance
+- Check Vercel Analytics for performance
 - Monitor function logs for API issues
 - Set up notifications for build failures 

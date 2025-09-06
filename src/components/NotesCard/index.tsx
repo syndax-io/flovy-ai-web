@@ -1,6 +1,14 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import NoteIcon from "@mui/icons-material/Note";
+import TrackChangesIcon from "@mui/icons-material/TrackChanges";
+import NotificationImportantIcon from "@mui/icons-material/NotificationImportant";
+import AddIcon from "@mui/icons-material/Add";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
+import DeleteIcon from "@mui/icons-material/Delete";
+import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 
 interface Note {
   id: string;
@@ -109,13 +117,13 @@ export default function NotesCard({ onNotesUpdate }: NotesCardProps) {
   const getTypeIcon = (type: string) => {
     switch (type) {
       case "goal":
-        return "🎯";
+        return <TrackChangesIcon className="w-5 h-5" />;
       case "note":
-        return "📝";
+        return <NoteIcon className="w-5 h-5" />;
       case "reminder":
-        return "⏰";
+        return <NotificationImportantIcon className="w-5 h-5" />;
       default:
-        return "📝";
+        return <NoteIcon className="w-5 h-5" />;
     }
   };
 
@@ -134,9 +142,10 @@ export default function NotesCard({ onNotesUpdate }: NotesCardProps) {
         </div>
         <button
           onClick={() => setIsAddingNote(true)}
-          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+          className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium flex items-center space-x-2"
         >
-          Add Note
+          <AddIcon className="w-4 h-4" />
+          <span>Add Note</span>
         </button>
       </div>
 
@@ -189,9 +198,9 @@ export default function NotesCard({ onNotesUpdate }: NotesCardProps) {
                 }
                 className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
-                <option value="note">📝 Note</option>
-                <option value="goal">🎯 Goal</option>
-                <option value="reminder">⏰ Reminder</option>
+                <option value="note">Note</option>
+                <option value="goal">Goal</option>
+                <option value="reminder">Reminder</option>
               </select>
               <select
                 value={newNote.priority}
@@ -203,9 +212,9 @@ export default function NotesCard({ onNotesUpdate }: NotesCardProps) {
                 }
                 className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               >
-                <option value="low">🟢 Low</option>
-                <option value="medium">🟡 Medium</option>
-                <option value="high">🔴 High</option>
+                <option value="low">Low Priority</option>
+                <option value="medium">Medium Priority</option>
+                <option value="high">High Priority</option>
               </select>
             </div>
             <div className="flex space-x-2">
@@ -238,7 +247,9 @@ export default function NotesCard({ onNotesUpdate }: NotesCardProps) {
       <div className="space-y-3 max-h-96 overflow-y-auto">
         {notes.length === 0 ? (
           <div className="text-center py-8 text-gray-500 dark:text-gray-400">
-            <div className="text-4xl mb-2">📝</div>
+            <div className="w-12 h-12 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
+              <NoteIcon className="w-8 h-8 text-gray-400" />
+            </div>
             <p>No notes yet. Add your first note or goal!</p>
           </div>
         ) : (
@@ -254,7 +265,9 @@ export default function NotesCard({ onNotesUpdate }: NotesCardProps) {
               <div className="flex items-start justify-between">
                 <div className="flex-1">
                   <div className="flex items-center space-x-2 mb-2">
-                    <span className="text-lg">{getTypeIcon(note.type)}</span>
+                    <div className="text-gray-600 dark:text-gray-400">
+                      {getTypeIcon(note.type)}
+                    </div>
                     <h4
                       className={`font-medium ${
                         note.completed
@@ -264,13 +277,18 @@ export default function NotesCard({ onNotesUpdate }: NotesCardProps) {
                     >
                       {note.title}
                     </h4>
-                    <span
-                      className={`text-xs px-2 py-1 rounded-full ${getPriorityColor(
-                        note.priority
-                      )} bg-opacity-20`}
-                    >
-                      {note.priority}
-                    </span>
+                    <div className="flex items-center space-x-1">
+                      <FiberManualRecordIcon
+                        className={`w-3 h-3 ${getPriorityColor(note.priority)}`}
+                      />
+                      <span
+                        className={`text-xs px-2 py-1 rounded-full ${getPriorityColor(
+                          note.priority
+                        )} bg-opacity-20`}
+                      >
+                        {note.priority}
+                      </span>
+                    </div>
                   </div>
                   <p
                     className={`text-sm ${
@@ -299,14 +317,18 @@ export default function NotesCard({ onNotesUpdate }: NotesCardProps) {
                       note.completed ? "Mark as incomplete" : "Mark as complete"
                     }
                   >
-                    {note.completed ? "✅" : "⭕"}
+                    {note.completed ? (
+                      <CheckCircleIcon className="w-5 h-5" />
+                    ) : (
+                      <RadioButtonUncheckedIcon className="w-5 h-5" />
+                    )}
                   </button>
                   <button
                     onClick={() => deleteNote(note.id)}
                     className="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 hover:bg-red-100 dark:hover:bg-red-900/20 hover:text-red-600 dark:hover:text-red-400 transition-colors"
                     title="Delete note"
                   >
-                    🗑️
+                    <DeleteIcon className="w-5 h-5" />
                   </button>
                 </div>
               </div>

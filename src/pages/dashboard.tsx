@@ -30,7 +30,7 @@ export default function Dashboard() {
 
             {/* AI Chat Assistant */}
             <div className="mb-8">
-              <AIChatCard userName={user?.displayName || "User"} />
+              <AIChatCard />
             </div>
 
             {/* Google Calendar Integration */}

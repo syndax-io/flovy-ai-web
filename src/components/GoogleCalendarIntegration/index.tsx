@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 
 import { useGoogleCalendar } from "../../hooks/useGoogleCalendar";
 import Card from "../Card";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import RefreshIcon from "@mui/icons-material/Refresh";
 
 const GoogleCalendarIntegration: React.FC = () => {
   const {
@@ -131,13 +134,7 @@ const GoogleCalendarIntegration: React.FC = () => {
     <Card variant="green" title="Google Calendar Connected">
       <div className="space-y-4">
         <div className="flex items-center space-x-2 text-green-600 dark:text-green-400">
-          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-            <path
-              fillRule="evenodd"
-              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-              clipRule="evenodd"
-            />
-          </svg>
+          <CheckCircleIcon className="w-5 h-5" />
           <span className="font-medium">Successfully connected!</span>
         </div>
 

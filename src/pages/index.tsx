@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 
 import { useRouter } from "next/router";
-import Head from "next/head";
 import Logo from "../components/Logo";
 import FlovySlogan from "../components/FlovySlogan";
 import DevLoginButton from "../components/DevLoginButton";
@@ -39,12 +38,6 @@ export default function Home() {
 
   return (
     <div className="relative flex size-full min-h-screen flex-col overflow-x-hidden bg-[#f9f9f9] dark:bg-[#00001a]">
-      <Head>
-        <link
-          href="https://fonts.googleapis.com/icon?family=Material+Icons"
-          rel="stylesheet"
-        />
-      </Head>
       {/* Header */}
       <header className="bg-white dark:bg-gray-800 shadow-md py-4 px-6 flex justify-between items-center sticky top-0 z-50">
         <Logo width={30} height={30} />

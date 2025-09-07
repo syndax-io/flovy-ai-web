@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 
 import { useRouter } from "next/router";
-import Head from "next/head";
 import Logo from "../components/Logo";
 import FlovySlogan from "../components/FlovySlogan";
 import DevLoginButton from "../components/DevLoginButton";

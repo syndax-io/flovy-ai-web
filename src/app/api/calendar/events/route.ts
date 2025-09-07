@@ -1,20 +1,16 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextRequest, NextResponse } from 'next/server';
 import { google } from 'googleapis';
 import { OAuth2Client } from 'google-auth-library';
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  if (req.method !== 'GET') {
-    res.setHeader('Allow', ['GET']);
-    return res.status(405).end(`Method ${req.method} Not Allowed`);
-  }
-
-  const { access_token, refresh_token, days = 365, calendarIds } = req.query;
+export async function GET(request: NextRequest) {
+  const { searchParams } = new URL(request.url);
+  const access_token = searchParams.get('access_token');
+  const refresh_token = searchParams.get('refresh_token');
+  const days = searchParams.get('days') || '365';
+  const calendarIds = searchParams.getAll('calendarIds');
 
   if (!access_token || !refresh_token) {
-    return res.status(400).json({ error: 'Access token and refresh token are required' });
+    return NextResponse.json({ error: 'Access token and refresh token are required' }, { status: 400 });
   }
 
   try {
@@ -25,8 +21,8 @@ export default async function handler(
     );
 
     oauth2Client.setCredentials({
-      access_token: access_token as string,
-      refresh_token: refresh_token as string,
+      access_token: access_token,
+      refresh_token: refresh_token,
     });
 
     const calendar = google.calendar({ version: 'v3', auth: oauth2Client });
@@ -34,12 +30,10 @@ export default async function handler(
     // Calculate date range
     const now = new Date();
     const startDate = new Date();
-    startDate.setDate(now.getDate() - parseInt(days as string));
+    startDate.setDate(now.getDate() - parseInt(days));
 
     // Parse calendar IDs - if not provided, use primary calendar
-    const calendarIdList = calendarIds 
-      ? (Array.isArray(calendarIds) ? calendarIds : [calendarIds])
-      : ['primary'];
+    const calendarIdList = calendarIds.length > 0 ? calendarIds : ['primary'];
 
     let allEvents: any[] = []; // eslint-disable-line @typescript-eslint/no-explicit-any
 
@@ -47,7 +41,7 @@ export default async function handler(
     for (const calendarId of calendarIdList) {
       try {
         const response = await calendar.events.list({
-          calendarId: calendarId as string,
+          calendarId: calendarId,
           timeMin: startDate.toISOString(),
           timeMax: now.toISOString(),
           singleEvents: true,
@@ -110,22 +104,22 @@ export default async function handler(
       analytics.eventsByCalendar[event.calendarName] = (analytics.eventsByCalendar[event.calendarName] || 0) + 1;
     });
 
-    res.status(200).json({
+    return NextResponse.json({
       events: processedEvents,
       analytics,
       dateRange: {
         start: startDate.toISOString(),
         end: now.toISOString(),
-        days: parseInt(days as string)
+        days: parseInt(days)
       },
       calendarsUsed: calendarIdList
     });
 
   } catch (error) {
     console.error('Error fetching calendar events:', error);
-    res.status(500).json({ 
+    return NextResponse.json({ 
       error: 'Failed to fetch calendar events',
       details: error instanceof Error ? error.message : 'Unknown error'
-    });
+    }, { status: 500 });
   }
-} 
+}

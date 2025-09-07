@@ -1,5 +1,5 @@
 import { OAuth2Client } from 'google-auth-library';
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextRequest, NextResponse } from 'next/server';
 
 // Get the redirect URI from environment variable or use localhost for development
 const getRedirectUri = () => {
@@ -19,15 +19,7 @@ const oauth2Client = new OAuth2Client(
   getRedirectUri()
 );
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  if (req.method !== 'GET') {
-    res.setHeader('Allow', ['GET']);
-    return res.status(405).end(`Method ${req.method} Not Allowed`);
-  }
-
+export async function GET() {
   const redirectUri = getRedirectUri();
 
   // Generate OAuth URL
@@ -48,5 +40,5 @@ export default async function handler(
   console.log('Using Redirect URI:', redirectUri);
   console.log('Generated Auth URL:', authUrl);
 
-  res.status(200).json({ authUrl, redirectUri });
+  return NextResponse.json({ authUrl, redirectUri });
 }

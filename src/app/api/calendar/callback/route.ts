@@ -1,4 +1,4 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextRequest, NextResponse } from 'next/server';
 import { OAuth2Client } from 'google-auth-library';
 
 // Get the redirect URI from environment variable or use localhost for development
@@ -19,33 +19,27 @@ const oauth2Client = new OAuth2Client(
   getRedirectUri()
 );
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  if (req.method !== 'GET') {
-    res.setHeader('Allow', ['GET']);
-    return res.status(405).end(`Method ${req.method} Not Allowed`);
-  }
-
-  const { code, error } = req.query;
+export async function GET(request: NextRequest) {
+  const { searchParams } = new URL(request.url);
+  const code = searchParams.get('code');
+  const error = searchParams.get('error');
 
   if (error) {
     // Handle OAuth error
     console.error('OAuth error:', error);
-    return res.redirect(`/dashboard?error=${encodeURIComponent(error as string)}`);
+    return NextResponse.redirect(new URL(`/dashboard?error=${encodeURIComponent(error)}`, request.url));
   }
 
   if (!code) {
     console.error('No authorization code received');
-    return res.redirect('/dashboard?error=No authorization code received');
+    return NextResponse.redirect(new URL('/dashboard?error=No authorization code received', request.url));
   }
 
   try {
     console.log('Exchanging code for tokens...');
     
     // Exchange code for tokens directly here
-    const { tokens } = await oauth2Client.getToken(code as string);
+    const { tokens } = await oauth2Client.getToken(code);
     
     console.log('Tokens received successfully');
 
@@ -57,10 +51,10 @@ export default async function handler(
     });
 
     console.log('Redirecting to dashboard with tokens');
-    res.redirect(`/dashboard?${tokenParams.toString()}`);
+    return NextResponse.redirect(new URL(`/dashboard?${tokenParams.toString()}`, request.url));
 
   } catch (error) {
     console.error('Error in callback:', error);
-    res.redirect('/dashboard?error=Failed to complete authentication');
+    return NextResponse.redirect(new URL('/dashboard?error=Failed to complete authentication', request.url));
   }
-} 
+}

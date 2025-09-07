@@ -1,4 +1,4 @@
-import type { NextApiRequest, NextApiResponse } from "next";
+import { NextRequest, NextResponse } from "next/server";
 import { initializeApp, getApps, cert } from "firebase-admin/app";
 import { getAuth } from "firebase-admin/auth";
 
@@ -31,25 +31,20 @@ if (!getApps().length) {
   }
 }
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  console.log("Waitlist data API called:", { method: req.method, url: req.url });
-
-  if (req.method !== "GET") {
-    res.setHeader("Allow", ["GET"]);
-    return res.status(405).json({ error: "Method Not Allowed" });
-  }
+export async function GET(request: NextRequest) {
+  console.log("Waitlist data API called:", { method: request.method, url: request.url });
 
   if (!BREVO_API_KEY) {
     console.error("BREVO_API_KEY not configured");
-    return res.status(500).json({ error: "Brevo API key not configured" });
+    return NextResponse.json({ error: "Brevo API key not configured" }, { status: 500 });
   }
 
   // Check authentication
   try {
-    const authHeader = req.headers.authorization;
+    const authHeader = request.headers.get("authorization");
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
       console.log("Missing or invalid authorization header");
-      return res.status(401).json({ error: "Unauthorized" });
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     const token = authHeader.split("Bearer ")[1];
@@ -57,12 +52,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     
     if (decodedToken.email !== "faiz@flovy.ai") {
       console.log("Unauthorized access attempt:", decodedToken.email);
-      return res.status(403).json({ error: "Forbidden" });
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
     console.log("Authentication successful for:", decodedToken.email);
   } catch (error) {
     console.error("Token verification error:", error);
-    return res.status(401).json({ error: "Invalid token" });
+    return NextResponse.json({ error: "Invalid token" }, { status: 401 });
   }
 
   try {
@@ -83,7 +78,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (!brevoRes.ok) {
       const errorText = await brevoRes.text();
       console.error("Brevo API error:", { status: brevoRes.status, statusText: brevoRes.statusText, error: errorText });
-      return res.status(500).json({ error: "Failed to fetch contacts", details: errorText });
+      return NextResponse.json({ error: "Failed to fetch contacts", details: errorText }, { status: 500 });
     }
 
     const data = await brevoRes.json();
@@ -115,13 +110,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     console.log("Successfully formatted contacts:", formattedContacts.length);
 
-    return res.status(200).json({
+    return NextResponse.json({
       total: formattedContacts.length,
       contacts: formattedContacts,
     });
   } catch (error: unknown) {
     console.error("Error fetching waitlist data:", error);
     const errorMessage = error instanceof Error ? error.message : "Unexpected error";
-    return res.status(500).json({ error: errorMessage });
+    return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }

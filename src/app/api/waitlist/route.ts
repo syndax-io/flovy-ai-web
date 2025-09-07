@@ -1,4 +1,4 @@
-import type { NextApiRequest, NextApiResponse } from "next";
+import { NextRequest, NextResponse } from "next/server";
 
 const BREVO_API_KEY = process.env.BREVO_API_KEY;
 const BREVO_LIST_ID = process.env.BREVO_LIST_ID; // optional: put contacts in a list
@@ -59,21 +59,17 @@ async function ensureCustomAttributes() {
   }
 }
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method !== "POST") {
-    res.setHeader("Allow", ["POST"]);
-    return res.status(405).json({ error: "Method Not Allowed" });
-  }
-
+export async function POST(request: NextRequest) {
   if (!BREVO_API_KEY) {
-    return res.status(500).json({ error: "Brevo API key not configured" });
+    return NextResponse.json({ error: "Brevo API key not configured" }, { status: 500 });
   }
 
   try {
-    const { email, name, challenge, goal, urgency } = req.body || {};
+    const body = await request.json();
+    const { email, name, challenge, goal, urgency } = body || {};
 
     if (!email || typeof email !== "string") {
-      return res.status(400).json({ error: "Email is required" });
+      return NextResponse.json({ error: "Email is required" }, { status: 400 });
     }
 
     // Ensure custom attributes exist (only on first request)
@@ -157,7 +153,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           if (!patchRes.ok) {
             const patchText = await patchRes.text();
             console.error("Brevo PATCH error:", patchText);
-            return res.status(500).json({ error: "Brevo update failed", details: patchText });
+            return NextResponse.json({ error: "Brevo update failed", details: patchText }, { status: 500 });
           }
           
           console.log("Contact updated successfully with PATCH");
@@ -165,7 +161,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           console.log("Contact updated successfully with PUT");
         }
       } else {
-        return res.status(500).json({ error: "Brevo create failed", details: errText });
+        return NextResponse.json({ error: "Brevo create failed", details: errText }, { status: 500 });
       }
     } else {
       console.log("Contact created successfully");
@@ -185,10 +181,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       console.log("Contact verification:", JSON.stringify(contactData, null, 2));
     }
 
-    return res.status(200).json({ ok: true });
+    return NextResponse.json({ ok: true });
   } catch (error: unknown) {
     console.error("Unexpected error:", error);
     const errorMessage = error instanceof Error ? error.message : "Unexpected error";
-    return res.status(500).json({ error: errorMessage });
+    return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }

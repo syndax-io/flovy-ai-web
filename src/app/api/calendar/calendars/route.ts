@@ -1,4 +1,4 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextRequest, NextResponse } from 'next/server';
 import { google } from 'googleapis';
 import { OAuth2Client } from 'google-auth-library';
 
@@ -11,19 +11,13 @@ interface CalendarListEntry {
   selected?: boolean;
 }
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  if (req.method !== 'GET') {
-    res.setHeader('Allow', ['GET']);
-    return res.status(405).end(`Method ${req.method} Not Allowed`);
-  }
-
-  const { access_token, refresh_token } = req.query;
+export async function GET(request: NextRequest) {
+  const { searchParams } = new URL(request.url);
+  const access_token = searchParams.get('access_token');
+  const refresh_token = searchParams.get('refresh_token');
 
   if (!access_token || !refresh_token) {
-    return res.status(400).json({ error: 'Access token and refresh token are required' });
+    return NextResponse.json({ error: 'Access token and refresh token are required' }, { status: 400 });
   }
 
   try {
@@ -34,8 +28,8 @@ export default async function handler(
     );
 
     oauth2Client.setCredentials({
-      access_token: access_token as string,
-      refresh_token: refresh_token as string,
+      access_token: access_token,
+      refresh_token: refresh_token,
     });
 
     const calendar = google.calendar({ version: 'v3', auth: oauth2Client });
@@ -52,7 +46,7 @@ export default async function handler(
       selected: item.primary || false, // Default to primary calendar being selected
     }));
 
-    res.status(200).json({
+    return NextResponse.json({
       calendars,
       totalCalendars: calendars.length,
       primaryCalendar: calendars.find(cal => cal.primary)?.id || 'primary'
@@ -60,9 +54,9 @@ export default async function handler(
 
   } catch (error) {
     console.error('Error fetching calendar list:', error);
-    res.status(500).json({ 
+    return NextResponse.json({ 
       error: 'Failed to fetch calendar list',
       details: error instanceof Error ? error.message : 'Unknown error'
-    });
+    }, { status: 500 });
   }
-} 
+}

@@ -1,38 +1,68 @@
 # Flovy AI Web - Project Structure
 
-This is a Next.js 15 application for flovy.ai, an AI-powered productivity assistant. The project uses TypeScript, Tailwind CSS, Firebase, and Google Calendar integration.
+This is a Next.js 15 application for flovy.ai, an AI-powered productivity assistant. The project uses a **hybrid routing approach** with both Pages Router and App Router, TypeScript, Tailwind CSS, Firebase, and Google Calendar integration.
 
 ## Key Files and Directories
 
-- **Main App**: [src/app/page.tsx](mdc:src/app/page.tsx) - Main landing page
-- **Layout**: [src/app/layout.tsx](mdc:src/app/layout.tsx) - Root layout component
+- **Main Landing Page**: [src/pages/index.tsx](mdc:src/pages/index.tsx) - Main landing page (Pages Router)
+- **Dashboard**: [src/pages/dashboard.tsx](mdc:src/pages/dashboard.tsx) - Main dashboard page
+- **Settings**: [src/pages/settings.tsx](mdc:src/pages/settings.tsx) - User settings page
+- **App Config**: [src/pages/_app.tsx](mdc:src/pages/_app.tsx) - Custom App component with providers
+- **Document**: [src/pages/_document.tsx](mdc:src/pages/_document.tsx) - Custom Document component
 - **Global Styles**: [src/styles/globals.css](mdc:src/styles/globals.css) - Global CSS styles
 - **Configuration**: [next.config.ts](mdc:next.config.ts) - Next.js configuration
 - **TypeScript Config**: [tsconfig.json](mdc:tsconfig.json) - TypeScript settings with path mapping
-- **Package Config**: [package.json](mdc:package.json) - Dependencies and scripts
+
+## Routing Architecture (Hybrid)
+- **Pages**: Use Pages Router in [src/pages/](mdc:src/pages/) for main application pages
+- **APIs**: Use App Router in [src/app/api/](mdc:src/app/api/) for modern API route handlers
+- **Components/Utils**: Organized in [src/app/](mdc:src/app/) for shared resources
 
 ## Component Structure
-All components are in [src/components/](mdc:src/components/) with individual directories containing index.tsx files:
-- [src/components/Card/index.tsx](mdc:src/components/Card/index.tsx) - Reusable card component with variants
-- [src/components/Navbar/index.tsx](mdc:src/components/Navbar/index.tsx) - Navigation component
-- [src/components/ThemeToggle/index.tsx](mdc:src/components/ThemeToggle/index.tsx) - Dark/light mode toggle
-- [src/components/LoginButton/index.tsx](mdc:src/components/LoginButton/index.tsx) - Authentication button
-- [src/components/GoogleCalendarIntegration/index.tsx](mdc:src/components/GoogleCalendarIntegration/index.tsx) - Calendar integration
+All components are in [src/app/components/](mdc:src/app/components/) with individual directories containing index.tsx files:
+- [src/app/components/Card/index.tsx](mdc:src/app/components/Card/index.tsx) - Reusable card component with variants
+- [src/app/components/Navbar/index.tsx](mdc:src/app/components/Navbar/index.tsx) - Navigation component
+- [src/app/components/ThemeToggle/index.tsx](mdc:src/app/components/ThemeToggle/index.tsx) - Dark/light mode toggle
+- [src/app/components/LoginButton/index.tsx](mdc:src/app/components/LoginButton/index.tsx) - Authentication button
+- [src/app/components/GoogleCalendarIntegration/index.tsx](mdc:src/app/components/GoogleCalendarIntegration/index.tsx) - Calendar integration
+- [src/app/components/ProtectedRoute/index.tsx](mdc:src/app/components/ProtectedRoute/index.tsx) - Route protection wrapper
+- [src/app/components/AIChatCard/index.tsx](mdc:src/app/components/AIChatCard/index.tsx) - AI chat interface
+- [src/app/components/NotesCard/index.tsx](mdc:src/app/components/NotesCard/index.tsx) - Notes management
 
-## API Routes
-API routes are in [src/app/api/](mdc:src/app/api/) following Next.js 15 App Router conventions:
-- [src/app/api/suggestions/route.ts](mdc:src/app/api/suggestions/route.ts) - AI suggestions endpoint
-- [src/pages/api/waitlist.ts](mdc:src/pages/api/waitlist.ts) - Waitlist management
-- [src/pages/api/admin/waitlist-data.ts](mdc:src/pages/api/admin/waitlist-data.ts) - Admin waitlist data
+## API Routes (App Router)
+All API routes are in [src/app/api/](mdc:src/app/api/) following Next.js 15 App Router conventions:
+- [src/app/api/suggestions/route.ts](mdc:src/app/api/suggestions/route.ts) - AI productivity suggestions
+- [src/app/api/waitlist/route.ts](mdc:src/app/api/waitlist/route.ts) - Waitlist management
+- [src/app/api/notes/route.ts](mdc:src/app/api/notes/route.ts) - Notes CRUD operations
+- [src/app/api/calendar/auth/route.ts](mdc:src/app/api/calendar/auth/route.ts) - Google Calendar OAuth
+- [src/app/api/calendar/events/route.ts](mdc:src/app/api/calendar/events/route.ts) - Calendar events
+- [src/app/api/calendar/callback/route.ts](mdc:src/app/api/calendar/callback/route.ts) - OAuth callback
+- [src/app/api/admin/waitlist-data/route.ts](mdc:src/app/api/admin/waitlist-data/route.ts) - Admin waitlist data
+
+## Pages (Pages Router)
+- [src/pages/index.tsx](mdc:src/pages/index.tsx) - Landing page with waitlist signup
+- [src/pages/dashboard.tsx](mdc:src/pages/dashboard.tsx) - Main productivity dashboard
+- [src/pages/settings.tsx](mdc:src/pages/settings.tsx) - User settings and session config
+- [src/pages/admin/index.tsx](mdc:src/pages/admin/index.tsx) - Admin dashboard
+- [src/pages/admin/waitlist.tsx](mdc:src/pages/admin/waitlist.tsx) - Admin waitlist management
 
 ## Context and State Management
-- [src/contexts/AuthContext.tsx](mdc:src/contexts/AuthContext.tsx) - Authentication state
-- [src/contexts/ThemeContext.tsx](mdc:src/contexts/ThemeContext.tsx) - Theme state management
+- [src/app/contexts/AuthContext.tsx](mdc:src/app/contexts/AuthContext.tsx) - Firebase authentication state
+- [src/app/contexts/ThemeContext.tsx](mdc:src/app/contexts/ThemeContext.tsx) - Dark/light theme management
 
-## Configuration and Utilities
-- [src/lib/firebase.ts](mdc:src/lib/firebase.ts) - Firebase configuration
-- [src/lib/aiModels.ts](mdc:src/lib/aiModels.ts) - AI model configurations
-- [src/config/session.ts](mdc:src/config/session.ts) - Session management
+## Hooks and Utilities
+- [src/app/hooks/useGoogleCalendar.ts](mdc:src/app/hooks/useGoogleCalendar.ts) - Google Calendar integration
+- [src/app/hooks/useNotes.ts](mdc:src/app/hooks/useNotes.ts) - Notes management
+- [src/app/lib/firebase.ts](mdc:src/app/lib/firebase.ts) - Firebase configuration and auth
+- [src/app/lib/aiModels.ts](mdc:src/app/lib/aiModels.ts) - AI model configurations (OpenAI, Gemini)
+- [src/app/lib/sessionManager.ts](mdc:src/app/lib/sessionManager.ts) - Session timeout management
+- [src/app/config/session.ts](mdc:src/app/config/session.ts) - Session preset configurations
+- [src/app/data/dashboardData.ts](mdc:src/app/data/dashboardData.ts) - Mock dashboard data
+
+## Important Notes
+- **Hybrid Architecture**: Pages use Pages Router, APIs use App Router for best of both worlds
+- **Import Paths**: Pages import from `../app/` while App components use relative paths
+- **API Routes**: All APIs follow App Router `route.ts` convention with named exports (GET, POST, etc.)
 description:
 globs:
 alwaysApply: false

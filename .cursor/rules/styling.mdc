@@ -6,6 +6,7 @@
 - Use consistent color schemes: blue, green, purple, gray, red, yellow variants
 - Follow responsive design patterns with Tailwind breakpoints
 - Use proper spacing and typography scales
+- Prefer minimalistic design principles preferring black, grey and white colour derivatives
 
 ## Component Styling Patterns
 Reference [src/components/Card/index.tsx](mdc:src/components/Card/index.tsx) for variant-based styling:

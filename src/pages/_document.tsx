@@ -1,3 +1,4 @@
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Html, Head, Main, NextScript } from "next/document";
 
 export default function Document() {
@@ -24,6 +25,10 @@ export default function Document() {
           href="/favicon-16x16.png"
         />
         <link rel="manifest" href="/site.webmanifest" />
+        <link
+          href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet"
+        />
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -40,6 +45,7 @@ export default function Document() {
       <body className="antialiased">
         <Main />
         <NextScript />
+        <SpeedInsights />
       </body>
     </Html>
   );

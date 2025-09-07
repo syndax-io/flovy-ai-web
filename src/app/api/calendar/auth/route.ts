@@ -1,5 +1,5 @@
 import { OAuth2Client } from 'google-auth-library';
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
 // Get the redirect URI from environment variable or use localhost for development
 const getRedirectUri = () => {

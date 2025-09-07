@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import ProtectedRoute from "../components/ProtectedRoute";
-import Navbar from "../components/Navbar";
-import { sessionManager } from "../lib/sessionManager";
-import { PRESET_CONFIGS } from "../config/session";
+import ProtectedRoute from "../app/components/ProtectedRoute";
+import Navbar from "../app/components/Navbar";
+import { sessionManager } from "../app/lib/sessionManager";
+import { PRESET_CONFIGS } from "../app/config/session";
 
 export default function Settings() {
   const [currentConfig, setCurrentConfig] = useState(

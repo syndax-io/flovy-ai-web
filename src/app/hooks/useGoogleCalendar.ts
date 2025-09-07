@@ -1,6 +1,7 @@
-import { useCallback, useEffect, useState } from 'react';
-import { auth } from '../lib/firebase';
 import { onAuthStateChanged, User } from 'firebase/auth';
+import { useCallback, useEffect, useState } from 'react';
+
+import { auth } from '../lib/firebase';
 
 interface CalendarTokens {
   access_token: string;

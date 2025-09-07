@@ -3,13 +3,13 @@
 import { useEffect, useState } from "react";
 
 import { useRouter } from "next/router";
-import Logo from "../components/Logo";
-import FlovySlogan from "../components/FlovySlogan";
-import DevLoginButton from "../components/DevLoginButton";
-import ThemeToggle from "../components/ThemeToggle";
-import JoinWaitlistModal from "../components/JoinWaitlistModal";
+import Logo from "../app/components/Logo";
+import FlovySlogan from "../app/components/FlovySlogan";
+import DevLoginButton from "../app/components/DevLoginButton";
+import ThemeToggle from "../app/components/ThemeToggle";
+import JoinWaitlistModal from "../app/components/JoinWaitlistModal";
 
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "../app/contexts/AuthContext";
 
 export default function Home() {
   const { user, loading } = useAuth();

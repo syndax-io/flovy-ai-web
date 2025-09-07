@@ -1,10 +1,10 @@
 "use client";
 
-import ProtectedRoute from "../components/ProtectedRoute";
-import Navbar from "../components/Navbar";
-import GoogleCalendarIntegration from "../components/GoogleCalendarIntegration";
-import AIChatCard from "../components/AIChatCard";
-import NotesCard from "../components/NotesCard";
+import ProtectedRoute from "../app/components/ProtectedRoute";
+import Navbar from "../app/components/Navbar";
+import GoogleCalendarIntegration from "../app/components/GoogleCalendarIntegration";
+import AIChatCard from "../app/components/AIChatCard";
+import NotesCard from "../app/components/NotesCard";
 
 export default function Dashboard() {
   return (

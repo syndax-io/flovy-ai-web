@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { AIModel, generateProductivitySuggestion, UserProfile } from '@/lib/aiModels';
+import { AIModel, generateProductivitySuggestion, UserProfile } from '../../lib/aiModels';
 
 export async function POST(req: NextRequest) {
   try {

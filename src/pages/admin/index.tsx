@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import Head from "next/head";
-import { useAuth } from "../../contexts/AuthContext";
+import { useAuth } from "../../app/contexts/AuthContext";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
